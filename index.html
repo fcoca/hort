@@ -26,6 +26,9 @@ svg{width:100%;height:auto;background:var(--card);border:1px solid var(--bd);bor
 .tag{display:inline-block;border-radius:99px;padding:2px 10px;font-size:13px;background:var(--bg);border:1px solid var(--bd)}
 .cr{border:1px solid var(--bd);border-radius:10px;padding:8px 10px;margin:8px 0}
 .v{border-radius:10px;padding:8px 10px;margin:8px 0;font-weight:600}.v2{background:#bfe5b8;color:#14380f}.v1{background:#dff0d6;color:#1f4a17}.v0{background:var(--bg);border:1px solid var(--bd)}.v-1{background:#f6c9c4;color:#6b1a12}
+.vw{background:#cfe6f7;color:#0e3550}
+@media(prefers-color-scheme:dark){.vw{background:#1f3a52;color:#cfe6f7}}
+.toast{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:99px;font-size:14px;z-index:9;max-width:90%;text-align:center}
 </style></head><body>
 <h1>🌱 El meu hort</h1>
 <main id="m"></main>
@@ -94,6 +97,16 @@ function compat(ps,title){const v=verdict(ps);if(v===null)return"";
  const V={2:"Molt bona combinació",1:"Bona combinació",0:"Combinació neutra","-1":"Convé evitar alguna parella"};
  return `<div class="v v${v}">${RT[v][0]} ${title||""}${V[v]}</div>`+ps.map(p=>`<div class="hist"><span>${CROPS[p[0]][0]} ${p[0]} + ${CROPS[p[1]][0]} ${p[1]}</span><span>${RT[p[2]][0]} ${RT[p[2]][1]}</span></div>`).join("")}
 function last(b,t){const l=(b.log||[]).filter(x=>x.t==t).map(x=>x.d).sort();return l.length?l[l.length-1]:null}
+const FAM={};[["Solanàcies","Tomàquet Pebrot Albergínia Patata"],["Cucurbitàcies","Carbassó Cogombre Meló Síndria Carbassa"],["Lleguminoses","Mongeta Pèsol Fava"],["Crucíferes","Col Bròquil Rave"],["Umbel·líferes","Pastanaga Julivert"],["Al·liàcies","Ceba Porro All"],["Quenopodiàcies","Espinacs Bleda Remolatxa"],["Asteràcies","Enciam"],["Lamiàcies","Alfàbrega"],["Rosàcies","Maduixa"]].forEach(([f,l])=>l.split(" ").forEach(n=>FAM[n]=f));
+function needsWater(b){
+ const sw=(b.crops||[]).filter(c=>c.sown).map(c=>c.sown).sort();if(!sw.length)return null;
+ const t=today(),w=last(b,"w"),ref=w||sw[0],n=diff(ref,t),nx=add(t,1),near=(S.wx?.days||[]).filter(x=>x.d==t||x.d==nx);
+ const hot=near.some(x=>x.tx>25),lim=hot?3:4,mm=mmSince(ref);
+ return n>lim&&mm<5&&!near.some(x=>x.mm>5)?{n,mm,hot,ref:w?"l’últim reg":"la sembra"}:null}
+const ret=b=>(b.log||[]).map((x,i)=>[x,i]).filter(p=>p[0].t=="h").sort((p,q)=>p[0].d<q[0].d?1:p[0].d>q[0].d?-1:q[1]-p[1]).map(p=>p[0]);
+function rotWarn(b,c){const f=FAM[c];if(!f)return"";const r=ret(b).slice(0,3).find(x=>FAM[x.n]==f);
+ return r?`<div class="v v-1">🔄 Mateixa família (${f}) que ${esc(r.n)}, retirat el ${fmt(r.d)}: convé rotar</div>`:""}
+function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}
 
 /* ---- Vistes ---- */
 function render(){
@@ -108,9 +121,9 @@ function rMap(){
   const em=[...new Set((x.crops||[]).map(c=>CROPS[c.crop][0]))].slice(0,4).join("");
   svg+=`<g data-id="${x.id}" style="cursor:grab"><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="4" fill="${f}" stroke="${bad?"#c0392b":x.id==sel?"var(--ac)":"var(--mu)"}" stroke-width="${bad||x.id==sel?3:1}"/>
   <text x="${X+W/2}" y="${Y+Hh/2-4}" text-anchor="middle" dominant-baseline="middle" font-size="${Math.max(8,Math.min(20,Hh/2.4))}">${em}</text>
-  <text x="${X+W/2}" y="${Y+Hh-6}" text-anchor="middle" font-size="9" fill="var(--tx)">${bad?"⚠️ ":""}${esc(x.name)}${w?" · 💧"+Math.max(0,diff(w,today()))+"d":""}</text></g>`}
+  <text x="${X+W/2}" y="${Y+Hh-6}" text-anchor="middle" font-size="9" fill="var(--tx)">${bad?"⚠️ ":""}${needsWater(x)?"💧! ":""}${esc(x.name)}${w?" · 💧"+Math.max(0,diff(w,today()))+"d":""}</text></g>`}
  svg+="</svg>";
- m.innerHTML=svg+`<div class="row"><button class="b p" id="add">＋ Afegeix bancal</button><span class="mu g1">Hort: ${nm(g.w)} × ${nm(g.h)} m · <a href="#" id="gl" style="color:var(--ac)">canvia</a></span></div><div class="mu">Arrossega per moure; toca per editar. Quadrícula: ${st} m.</div><div class="mu">${rainLine()}</div>`+(b?sheet(b):"");
+ m.innerHTML=svg+`<div class="row"><button class="b p" id="add">＋ Afegeix bancal</button><button class="b" id="wall">💧 Regar tot</button></div><div class="mu">Hort: ${nm(g.w)} × ${nm(g.h)} m · <a href="#" id="gl" style="color:var(--ac)">canvia</a> · Arrossega per moure; toca per editar. Quadrícula: ${st} m.</div><div class="mu">${rainLine()}</div>`+(b?sheet(b):"");
  wireMap()}
 function sheet(b){
  b.crops=b.crops||[];const lg=(b.log||[]).slice().sort((p,q)=>p.d<q.d?1:-1),t=today();
@@ -121,8 +134,9 @@ function sheet(b){
    (c.crop=="Altre"?`<div class="row"><label>Dies fins a collir</label><input type="number" data-cy="${i}" value="${c.days||""}" style="width:90px"></div>`:"")+
    (s?`<div>🧺 ${fmt(s[0])} – ${fmt(s[1])} <span class="mu">· ${msg}</span></div>`:"")
   :`<div class="row"><span class="tag">📝 Vull plantar-ho</span><button class="b p" data-cp="${i}">Ja ho he plantat</button></div>`)+`</div>`}).join("");
- const w=last(b,"w"),ps=pairs(b.crops.map(c=>c.crop));
+ const w=last(b,"w"),ps=pairs(b.crops.map(c=>c.crop)),nw=needsWater(b),rt=ret(b);
  return `<div class="card" style="margin-top:12px"><div class="row"><input id="nm" class="g1" value="${esc(b.name)}" aria-label="Nom"><button class="b d" id="del">🗑️</button></div>
+ ${nw?`<div class="v vw">💧! Convé regar: ${nw.n} dies des de ${nw.ref}, només ${nm(nw.mm)} mm de pluja${nw.hot?" i calor (>25 °C)":""}</div>`:""}
  <b>Cultius del bancal</b>${rows||'<div class="mu">Encara no hi ha cap cultiu.</div>'}
  <div class="row"><select id="cr" class="g1"><option value="">Afegeix un cultiu…</option>${Object.keys(CROPS).map(k=>`<option>${k}</option>`).join("")}</select></div>
  <div id="pv"></div>
@@ -133,7 +147,8 @@ function sheet(b){
  <div class="row"><input type="date" id="ld" value="${t}"><button class="b p" data-lg="w">💧 Regat</button></div>
  <div class="row"><input id="tn" class="g1" placeholder="Tractament (p. ex. sofre, oli de neem)"><button class="b p" data-lg="t">🧪 Tractat</button></div>
  <div class="mu">Últim reg: ${w?ago(w)+" · pluja des d’aleshores: "+nm(mmSince(w))+" mm":"—"}<br>Últim tractament: ${last(b,"t")?ago(last(b,"t")):"—"}</div>
- ${lg.map(x=>`<div class="hist"><span>${x.t=="w"?"💧 Reg":"🧪 "+esc(x.n||"Tractament")} · ${fmt(x.d)}</span><button data-rm="${x.k}">✕</button></div>`).join("")}</div>`}
+ ${rt.length?`<div class="mu" style="margin-top:6px">🔄 Anteriors: ${rt.slice(0,4).map(x=>(CROPS[x.n]?CROPS[x.n][0]+" ":"")+esc(x.n)+(FAM[x.n]?" ("+FAM[x.n]+")":"")).join(" · ")}<br>Evita repetir: ${[...new Set(rt.slice(0,2).map(x=>FAM[x.n]).filter(Boolean))].join(", ")||"—"}</div>`:""}
+ ${lg.map(x=>`<div class="hist"><span>${x.t=="w"?"💧 Reg":x.t=="h"?"🧺 Retirat: "+esc(x.n):"🧪 "+esc(x.n||"Tractament")} · ${fmt(x.d)}</span><button data-rm="${x.k}">✕</button></div>`).join("")}</div>`}
 function rRain(){
  const t=today(),r=lastRain(),fc=(S.wx?.days||[]).filter(x=>x.d>t);
  const past=[];for(let i=0;i<14;i++){const d=add(t,-i),x=dayRain(d);past.push([d,x])}
@@ -166,7 +181,7 @@ function rCfg(){
  <div id="gr">${geo.map((x,i)=>`<div class="hist"><span>${esc(x.name)}${x.admin1?", "+esc(x.admin1):""} (${esc(x.country||"")})</span><button class="b" data-gi="${i}">Tria</button></div>`).join("")}</div>
  <div class="mu">La pluja ve d’Open-Meteo (gratuït, sense clau d’API).</div></div>
  <div class="card"><b>💾 Còpia de seguretat</b><div class="mu">Les dades es guarden només en aquest navegador. Fes-ne una còpia de tant en tant.</div>
- <div class="row"><button class="b" id="ex">Exporta</button><button class="b" id="im">Importa</button><input type="file" id="fi" accept=".json" hidden></div></div>`;
+ <div class="row"><button class="b" id="ex">⬇️ Exportar dades</button><button class="b" id="im">⬆️ Importar dades</button><input type="file" id="fi" accept=".json" hidden></div></div>`;
  const gd=(k,id)=>$(id).onchange=e=>{const v=Math.max(1,Math.min(200,+e.target.value||G()[k]));G()[k]=v;
   S.beds.forEach(b=>{b.w=Math.min(b.w,G().w);b.h=Math.min(b.h,G().h);b.x=sn(Math.max(0,Math.min(b.x,G().w-b.w)));b.y=sn(Math.max(0,Math.min(b.y,G().h-b.h)))});save();render()};
  gd("w","#gw");gd("h","#gh");
@@ -175,9 +190,15 @@ function rCfg(){
   try{const j=await(await fetch("https://geocoding-api.open-meteo.com/v1/search?count=6&language=ca&name="+encodeURIComponent(q))).json();geo=j.results||[];if(!geo.length)alert("No s’ha trobat cap lloc.")}catch(e){alert("No s’ha pogut cercar.")}rCfg()};
  m.querySelectorAll("[data-gi]").forEach(e=>e.onclick=()=>{const x=geo[+e.dataset.gi];pick(x.name+(x.admin1?", "+x.admin1:""),x.latitude,x.longitude)});
  $("#gps").onclick=()=>navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>pick("La meva ubicació",p.coords.latitude,p.coords.longitude),()=>alert("No s’ha pogut obtenir la ubicació.")):alert("Aquest navegador no ho permet.");
- $("#ex").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:"application/json"}));a.download="hort-"+today()+".json";a.click()};
+ $("#ex").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:"application/json"}));a.download="hort-backup-"+today()+".json";a.click()};
  $("#im").onclick=()=>$("#fi").click();
- $("#fi").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);if(!Array.isArray(j.beds))throw 0;S=Object.assign({beds:[],rain:[],mm:{},loc:null,wx:null,garden:null},j);mig();save();alert("Dades importades.");tab="map";render()}catch(x){alert("Fitxer no vàlid.")}};r.readAsText(f)}}
+ $("#fi").onchange=e=>{const f=e.target.files[0];e.target.value="";if(!f)return;const r=new FileReader();
+  r.onload=()=>{let j;try{j=JSON.parse(r.result)}catch(x){}
+   const gg=j&&j.garden,ok=j&&Array.isArray(j.beds)&&(gg===undefined||(gg&&+gg.w>0&&+gg.h>0));
+   if(!ok){alert("Fitxer no vàlid: falten els bancals (beds) o les dimensions de l’hort (garden).");return}
+   if(!confirm("Això sobreescriurà totes les dades actuals de l’app. Vols continuar?"))return;
+   S=Object.assign({beds:[],rain:[],mm:{},loc:null,wx:null,garden:null},j);mig();sel=null;save();tab="map";render();toast("Dades importades")};
+  r.readAsText(f)}}
 
 /* ---- Interacció del croquis ---- */
 function wireMap(){
@@ -185,6 +206,10 @@ function wireMap(){
  $("#add").onclick=()=>{const k=uid(),n=S.beds.length,w=Math.min(1.2,g.w),h=Math.min(3,g.h);
   S.beds.push({id:k,name:"Bancal "+(n+1),x:sn(Math.min(g.w-w,0.5+(n%4)*1.8)),y:sn(Math.min(g.h-h,0.5+Math.floor(n/4)*3.5)),w,h,crops:[],log:[]});sel=k;save();render()};
  $("#gl").onclick=e=>{e.preventDefault();tab="cfg";render()};
+ $("#wall").onclick=()=>{const l=S.beds.filter(b=>(b.crops||[]).some(c=>c.sown));
+  if(!l.length){toast("Cap bancal amb cultius sembrats");return}
+  if(!confirm("Regar "+l.length+(l.length==1?" bancal?":" bancals?")))return;
+  l.forEach(b=>(b.log=b.log||[]).push({k:uid(),t:"w",d:today()}));save();render();toast("💧 Regat en "+l.length+(l.length==1?" bancal":" bancals"))};
  m.querySelectorAll("#sv g").forEach(e=>{e.onpointerdown=ev=>{const b=S.beds.find(x=>x.id==e.dataset.id),sv=$("#sv"),pt=sv.createSVGPoint();
   const at=v=>{pt.x=v.clientX;pt.y=v.clientY;return pt.matrixTransform(sv.getScreenCTM().inverse())};
   const p0=at(ev),ox=b.x,oy=b.y;let mv=false;e.setPointerCapture(ev.pointerId);
@@ -198,10 +223,11 @@ function wireMap(){
  $("#bw").onchange=e=>{b.w=Math.max(0.2,Math.min(g.w,sn(+e.target.value||b.w)));b.x=sn(Math.min(b.x,g.w-b.w));save();render()};
  $("#bh").onchange=e=>{b.h=Math.max(0.2,Math.min(g.h,sn(+e.target.value||b.h)));b.y=sn(Math.min(b.y,g.h-b.h));save();render()};
  $("#cr").onchange=e=>{const c=e.target.value;$("#addrow").hidden=!c;
-  $("#pv").innerHTML=c?(b.crops.length?compat(pairs(b.crops.map(x=>x.crop).concat(c),c),"Amb el que ja hi ha: "):'<div class="mu">Primer cultiu del bancal.</div>'):""};
+  $("#pv").innerHTML=c?(b.crops.length?compat(pairs(b.crops.map(x=>x.crop).concat(c),c),"Amb el que ja hi ha: "):'<div class="mu">Primer cultiu del bancal.</div>')+rotWarn(b,c):""};
  m.querySelectorAll("[data-ad]").forEach(e=>e.onclick=()=>{const c=$("#cr").value;if(!c)return;
   b.crops.push({crop:c,sown:e.dataset.ad=="1"?($("#sd").value||today()):""});save();render()});
- m.querySelectorAll("[data-cd]").forEach(e=>e.onclick=()=>{b.crops.splice(+e.dataset.cd,1);save();render()});
+ m.querySelectorAll("[data-cd]").forEach(e=>e.onclick=()=>{const c=b.crops.splice(+e.dataset.cd,1)[0];
+  if(c&&c.sown)(b.log=b.log||[]).push({k:uid(),t:"h",d:today(),n:c.crop,s:c.sown});save();render()});
  m.querySelectorAll("[data-cp]").forEach(e=>e.onclick=()=>{b.crops[+e.dataset.cp].sown=today();save();render()});
  m.querySelectorAll("[data-cs]").forEach(e=>e.onchange=()=>{b.crops[+e.dataset.cs].sown=e.value;save();render()});
  m.querySelectorAll("[data-cy]").forEach(e=>e.onchange=()=>{b.crops[+e.dataset.cy].days=e.value;save();render()});
