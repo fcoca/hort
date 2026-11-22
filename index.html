@@ -2,6 +2,12 @@
 <html lang="ca"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#3f7d3a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="El meu hort">
 <title>El meu hort</title>
 <style>
 :root{--bg:#f6f4ec;--card:#fff;--tx:#23301f;--mu:#6b7565;--ac:#3f7d3a;--bd:#d9d5c4;--soil:#d9c3a0;--grow:#a8d5a0;--rdy:#f2c14e}
@@ -193,4 +199,5 @@ function wireMap(){
 document.querySelectorAll("nav button").forEach(e=>e.onclick=()=>{tab=e.dataset.t;render()});
 load();render();
 if(S.loc&&(!S.wx||Date.now()-S.wx.t>36e5))fetchWx();
+if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 </script></body></html>
