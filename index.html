@@ -48,7 +48,7 @@ const PAIRS=[["Tomàquet","Alfàbrega",2],["Pebrot","Alfàbrega",2],["Albergíni
 const CP={};PAIRS.forEach(([a,b,v])=>{CP[a+"|"+b]=v;CP[b+"|"+a]=v});
 const RT={2:["🟢🟢","Molt bona"],1:["🟢","Bona"],0:["⚪","Neutra"],"-1":["🔴","Convé evitar"]};
 const LV=["Gens","Poca","Molta"],LI=["☀️","🌦️","🌧️"];
-let S={beds:[],rain:[],mm:{},loc:null,wx:null},sel=null,tab="map",tm=null,wxMsg="",geo=[];
+let S={beds:[],rain:[],mm:{},loc:null,wx:null,garden:null},sel=null,tab="map",tm=null,wxMsg="",geo=[];
 const $=s=>document.querySelector(s),m=$("#m");
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -62,7 +62,9 @@ const uid=()=>Math.random().toString(36).slice(2,9);
 const nm=x=>(Math.round(x*10)/10).toString().replace(".",",");
 const lvOf=mm=>mm<0.5?0:mm<5?1:2;
 function save(){try{localStorage.setItem("hort2",JSON.stringify(S))}catch(e){}}
-function load(){try{const j=localStorage.getItem("hort2");if(j)S=Object.assign(S,JSON.parse(j))}catch(e){}}
+function mig(){if(!S.garden){S.garden={w:9,h:10};S.beds.forEach(b=>["x","y","w","h"].forEach(k=>b[k]=Math.round(b[k]/40*10)/10))}}
+function load(){try{const j=localStorage.getItem("hort2");if(j)S=Object.assign(S,JSON.parse(j))}catch(e){}mig()}
+const G=()=>S.garden,SC=()=>360/G().w,sn=v=>Math.round(v*10)/10;
 
 /* ---- Pluja ---- */
 function dayRain(d){const r=S.rain.find(x=>x.d==d);if(r)return{lv:r.lv,mm:[0,2,10][r.lv],man:1};
@@ -98,17 +100,17 @@ function render(){
  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x.dataset.t==tab));
  ({map:rMap,rain:rRain,har:rHar,cfg:rCfg})[tab]();window.scrollTo(0,0)}
 function rainLine(){const r=lastRain();return r?`🌧️ Última pluja: ${LV[r.lv].toLowerCase()}, ${ago(r.d)}`:"🌧️ Cap pluja registrada"}
-function rMap(keep){
- const b=S.beds.find(x=>x.id==sel);
- let svg=`<svg id="sv" viewBox="0 0 360 400"><defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--bd)" stroke-width=".4"/></pattern></defs><rect width="360" height="400" fill="url(#g)"/>`;
- for(const x of S.beds){const st=status(x),f=st=="ready"?"var(--rdy)":st=="grow"?"var(--grow)":"var(--soil)",w=last(x,"w");
-  const bad=verdict(pairs((x.crops||[]).map(c=>c.crop)))==-1;
+function rMap(){
+ const b=S.beds.find(x=>x.id==sel),g=G(),s=SC(),H=g.h*s,st=g.w>40?5:1,q=s*st;
+ let svg=`<svg id="sv" viewBox="0 0 360 ${H}"><defs><pattern id="g" width="${q}" height="${q}" patternUnits="userSpaceOnUse"><path d="M${q} 0H0V${q}" fill="none" stroke="var(--bd)" stroke-width=".6"/></pattern></defs><rect width="360" height="${H}" fill="url(#g)"/>`;
+ for(const x of S.beds){const stt=status(x),f=stt=="ready"?"var(--rdy)":stt=="grow"?"var(--grow)":"var(--soil)",w=last(x,"w");
+  const bad=verdict(pairs((x.crops||[]).map(c=>c.crop)))==-1,X=x.x*s,Y=x.y*s,W=x.w*s,Hh=x.h*s;
   const em=[...new Set((x.crops||[]).map(c=>CROPS[c.crop][0]))].slice(0,4).join("");
-  svg+=`<g data-id="${x.id}" style="cursor:grab"><rect x="${x.x}" y="${x.y}" width="${x.w}" height="${x.h}" rx="6" fill="${f}" stroke="${bad?"#c0392b":x.id==sel?"var(--ac)":"var(--mu)"}" stroke-width="${bad||x.id==sel?3:1}"/>
-  <text x="${x.x+x.w/2}" y="${x.y+x.h/2-4}" text-anchor="middle" dominant-baseline="middle" font-size="${Math.min(20,x.h/2.4)}">${em}</text>
-  <text x="${x.x+x.w/2}" y="${x.y+x.h-6}" text-anchor="middle" font-size="9" fill="var(--tx)">${bad?"⚠️ ":""}${esc(x.name)}${w?" · 💧"+Math.max(0,diff(w,today()))+"d":""}</text></g>`}
+  svg+=`<g data-id="${x.id}" style="cursor:grab"><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="4" fill="${f}" stroke="${bad?"#c0392b":x.id==sel?"var(--ac)":"var(--mu)"}" stroke-width="${bad||x.id==sel?3:1}"/>
+  <text x="${X+W/2}" y="${Y+Hh/2-4}" text-anchor="middle" dominant-baseline="middle" font-size="${Math.max(8,Math.min(20,Hh/2.4))}">${em}</text>
+  <text x="${X+W/2}" y="${Y+Hh-6}" text-anchor="middle" font-size="9" fill="var(--tx)">${bad?"⚠️ ":""}${esc(x.name)}${w?" · 💧"+Math.max(0,diff(w,today()))+"d":""}</text></g>`}
  svg+="</svg>";
- m.innerHTML=svg+`<div class="row"><button class="b p" id="add">＋ Afegeix bancal</button><span class="mu g1">Arrossega per moure; toca per editar.</span></div><div class="mu">${rainLine()}</div>`+(b?sheet(b):"");
+ m.innerHTML=svg+`<div class="row"><button class="b p" id="add">＋ Afegeix bancal</button><span class="mu g1">Hort: ${nm(g.w)} × ${nm(g.h)} m · <a href="#" id="gl" style="color:var(--ac)">canvia</a></span></div><div class="mu">Arrossega per moure; toca per editar. Quadrícula: ${st} m.</div><div class="mu">${rainLine()}</div>`+(b?sheet(b):"");
  wireMap()}
 function sheet(b){
  b.crops=b.crops||[];const lg=(b.log||[]).slice().sort((p,q)=>p.d<q.d?1:-1),t=today();
@@ -127,7 +129,7 @@ function sheet(b){
  <div class="row" id="addrow" hidden><input type="date" id="sd" value="${t}"><button class="b p" data-ad="1">🌱 Plantat</button><button class="b" data-ad="0">📝 Vull plantar</button></div>
  ${ps.length?`<b>Simbiosi</b>${compat(ps)}`:""}
  <hr style="border:0;border-top:1px solid var(--bd)">
- <div class="row"><span class="mu">Mida</span><button class="b" data-sz="w-10">Amplada −</button><button class="b" data-sz="w10">+</button><button class="b" data-sz="h-10">Alçada −</button><button class="b" data-sz="h10">+</button></div>
+ <div class="row"><label>Amplada (m)</label><input type="number" id="bw" step="0.1" min="0.2" value="${b.w}" style="width:80px"><label>Llargada (m)</label><input type="number" id="bh" step="0.1" min="0.2" value="${b.h}" style="width:80px"><span class="mu">${nm(b.w*b.h)} m²</span></div>
  <div class="row"><input type="date" id="ld" value="${t}"><button class="b p" data-lg="w">💧 Regat</button></div>
  <div class="row"><input id="tn" class="g1" placeholder="Tractament (p. ex. sofre, oli de neem)"><button class="b p" data-lg="t">🧪 Tractat</button></div>
  <div class="mu">Últim reg: ${w?ago(w)+" · pluja des d’aleshores: "+nm(mmSince(w))+" mm":"—"}<br>Últim tractament: ${last(b,"t")?ago(last(b,"t")):"—"}</div>
@@ -155,13 +157,19 @@ function rHar(){
   return `<div class="card"><b>${CROPS[c.crop][0]} ${esc(c.crop)}</b> · ${esc(b.name)}<div class="mu">Sembrat ${fmt(c.sown)}</div><div>🧺 ${fmt(s[0])} – ${fmt(s[1])}</div><div class="mu">${msg}</div></div>`}).join("")
   :'<div class="card mu">Planta alguna cosa en un bancal i aquí veuràs quan collir-ho.</div>'}
 function rCfg(){
- m.innerHTML=`<div class="card"><b>📍 Ubicació de l’hort</b><div class="mu">${S.loc?esc(S.loc.name)+" ("+S.loc.lat.toFixed(3)+", "+S.loc.lon.toFixed(3)+")":"Cap ubicació triada"}</div>
+ m.innerHTML=`<div class="card"><b>📐 Dimensions de l’hort</b>
+ <div class="row"><label>Amplada (m)</label><input type="number" id="gw" step="0.5" min="1" max="200" value="${G().w}" style="width:80px"><label>Llargada (m)</label><input type="number" id="gh" step="0.5" min="1" max="200" value="${G().h}" style="width:80px"></div>
+ <div class="mu">Els bancals es mesuren en metres dins d’aquest espai. Si l’encongeixes, els bancals que hi sobrin s’ajusten.</div></div>
+ <div class="card"><b>📍 Ubicació de l’hort</b><div class="mu">${S.loc?esc(S.loc.name)+" ("+S.loc.lat.toFixed(3)+", "+S.loc.lon.toFixed(3)+")":"Cap ubicació triada"}</div>
  <div class="row"><input id="q" class="g1" placeholder="Nom del poble"><button class="b p" id="qs">Cerca</button></div>
  <div class="row"><button class="b" id="gps">📡 Usa la ubicació del mòbil</button></div>
  <div id="gr">${geo.map((x,i)=>`<div class="hist"><span>${esc(x.name)}${x.admin1?", "+esc(x.admin1):""} (${esc(x.country||"")})</span><button class="b" data-gi="${i}">Tria</button></div>`).join("")}</div>
  <div class="mu">La pluja ve d’Open-Meteo (gratuït, sense clau d’API).</div></div>
  <div class="card"><b>💾 Còpia de seguretat</b><div class="mu">Les dades es guarden només en aquest navegador. Fes-ne una còpia de tant en tant.</div>
  <div class="row"><button class="b" id="ex">Exporta</button><button class="b" id="im">Importa</button><input type="file" id="fi" accept=".json" hidden></div></div>`;
+ const gd=(k,id)=>$(id).onchange=e=>{const v=Math.max(1,Math.min(200,+e.target.value||G()[k]));G()[k]=v;
+  S.beds.forEach(b=>{b.w=Math.min(b.w,G().w);b.h=Math.min(b.h,G().h);b.x=sn(Math.max(0,Math.min(b.x,G().w-b.w)));b.y=sn(Math.max(0,Math.min(b.y,G().h-b.h)))});save();render()};
+ gd("w","#gw");gd("h","#gh");
  const pick=(name,lat,lon)=>{S.loc={name,lat,lon};geo=[];save();fetchWx();render()};
  $("#qs").onclick=async()=>{const q=$("#q").value.trim();if(!q)return;
   try{const j=await(await fetch("https://geocoding-api.open-meteo.com/v1/search?count=6&language=ca&name="+encodeURIComponent(q))).json();geo=j.results||[];if(!geo.length)alert("No s’ha trobat cap lloc.")}catch(e){alert("No s’ha pogut cercar.")}rCfg()};
@@ -169,21 +177,26 @@ function rCfg(){
  $("#gps").onclick=()=>navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>pick("La meva ubicació",p.coords.latitude,p.coords.longitude),()=>alert("No s’ha pogut obtenir la ubicació.")):alert("Aquest navegador no ho permet.");
  $("#ex").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:"application/json"}));a.download="hort-"+today()+".json";a.click()};
  $("#im").onclick=()=>$("#fi").click();
- $("#fi").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);if(!Array.isArray(j.beds))throw 0;S=Object.assign({beds:[],rain:[],mm:{},loc:null,wx:null},j);save();alert("Dades importades.");tab="map";render()}catch(x){alert("Fitxer no vàlid.")}};r.readAsText(f)}}
+ $("#fi").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);if(!Array.isArray(j.beds))throw 0;S=Object.assign({beds:[],rain:[],mm:{},loc:null,wx:null,garden:null},j);mig();save();alert("Dades importades.");tab="map";render()}catch(x){alert("Fitxer no vàlid.")}};r.readAsText(f)}}
 
 /* ---- Interacció del croquis ---- */
 function wireMap(){
- $("#add").onclick=()=>{const k=uid(),n=S.beds.length;S.beds.push({id:k,name:"Bancal "+(n+1),x:20+(n%2)*160,y:20+Math.floor(n/2)*70,w:140,h:50,crops:[],log:[]});sel=k;save();render()};
+ const g=G(),s=SC();
+ $("#add").onclick=()=>{const k=uid(),n=S.beds.length,w=Math.min(1.2,g.w),h=Math.min(3,g.h);
+  S.beds.push({id:k,name:"Bancal "+(n+1),x:sn(Math.min(g.w-w,0.5+(n%4)*1.8)),y:sn(Math.min(g.h-h,0.5+Math.floor(n/4)*3.5)),w,h,crops:[],log:[]});sel=k;save();render()};
+ $("#gl").onclick=e=>{e.preventDefault();tab="cfg";render()};
  m.querySelectorAll("#sv g").forEach(e=>{e.onpointerdown=ev=>{const b=S.beds.find(x=>x.id==e.dataset.id),sv=$("#sv"),pt=sv.createSVGPoint();
   const at=v=>{pt.x=v.clientX;pt.y=v.clientY;return pt.matrixTransform(sv.getScreenCTM().inverse())};
   const p0=at(ev),ox=b.x,oy=b.y;let mv=false;e.setPointerCapture(ev.pointerId);
   e.onpointermove=v=>{const p=at(v),dx=p.x-p0.x,dy=p.y-p0.y;if(Math.abs(dx)+Math.abs(dy)>4)mv=true;if(!mv)return;
-   b.x=Math.max(0,Math.min(360-b.w,Math.round((ox+dx)/10)*10));b.y=Math.max(0,Math.min(400-b.h,Math.round((oy+dy)/10)*10));
-   const r=e.firstElementChild,t=e.querySelectorAll("text");r.setAttribute("x",b.x);r.setAttribute("y",b.y);
-   t[0].setAttribute("x",b.x+b.w/2);t[0].setAttribute("y",b.y+b.h/2-4);t[1].setAttribute("x",b.x+b.w/2);t[1].setAttribute("y",b.y+b.h-6)};
+   b.x=sn(Math.max(0,Math.min(g.w-b.w,ox+dx/s)));b.y=sn(Math.max(0,Math.min(g.h-b.h,oy+dy/s)));
+   const r=e.firstElementChild,t=e.querySelectorAll("text");r.setAttribute("x",b.x*s);r.setAttribute("y",b.y*s);
+   t[0].setAttribute("x",(b.x+b.w/2)*s);t[0].setAttribute("y",(b.y+b.h/2)*s-4);t[1].setAttribute("x",(b.x+b.w/2)*s);t[1].setAttribute("y",(b.y+b.h)*s-6)};
   e.onpointerup=()=>{e.onpointermove=e.onpointerup=null;if(mv)save();sel=b.id;render()}}});
  const b=S.beds.find(x=>x.id==sel);if(!b)return;
  $("#nm").onchange=e=>{b.name=e.target.value;save();render()};
+ $("#bw").onchange=e=>{b.w=Math.max(0.2,Math.min(g.w,sn(+e.target.value||b.w)));b.x=sn(Math.min(b.x,g.w-b.w));save();render()};
+ $("#bh").onchange=e=>{b.h=Math.max(0.2,Math.min(g.h,sn(+e.target.value||b.h)));b.y=sn(Math.min(b.y,g.h-b.h));save();render()};
  $("#cr").onchange=e=>{const c=e.target.value;$("#addrow").hidden=!c;
   $("#pv").innerHTML=c?(b.crops.length?compat(pairs(b.crops.map(x=>x.crop).concat(c),c),"Amb el que ja hi ha: "):'<div class="mu">Primer cultiu del bancal.</div>'):""};
  m.querySelectorAll("[data-ad]").forEach(e=>e.onclick=()=>{const c=$("#cr").value;if(!c)return;
@@ -192,7 +205,6 @@ function wireMap(){
  m.querySelectorAll("[data-cp]").forEach(e=>e.onclick=()=>{b.crops[+e.dataset.cp].sown=today();save();render()});
  m.querySelectorAll("[data-cs]").forEach(e=>e.onchange=()=>{b.crops[+e.dataset.cs].sown=e.value;save();render()});
  m.querySelectorAll("[data-cy]").forEach(e=>e.onchange=()=>{b.crops[+e.dataset.cy].days=e.value;save();render()});
- m.querySelectorAll("[data-sz]").forEach(e=>e.onclick=()=>{const k=e.dataset.sz[0],v=+e.dataset.sz.slice(1);b[k]=Math.max(40,Math.min(k=="w"?360-b.x:400-b.y,b[k]+v));save();render()});
  m.querySelectorAll("[data-lg]").forEach(e=>e.onclick=()=>{const t=e.dataset.lg;(b.log=b.log||[]).push({k:uid(),t,d:$("#ld").value||today(),n:t=="t"?$("#tn").value:""});save();render()});
  m.querySelectorAll("[data-rm]").forEach(e=>e.onclick=()=>{b.log=b.log.filter(x=>x.k!=e.dataset.rm);save();render()});
  $("#del").onclick=()=>{if(confirm("Eliminar "+b.name+"?")){S.beds=S.beds.filter(x=>x!=b);sel=null;save();render()}}}
