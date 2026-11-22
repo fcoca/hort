@@ -241,15 +241,23 @@ function render(){
  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x.dataset.t==tab));
  ({map:rMap,rain:rRain,har:rHar,cat:rCat,cfg:rCfg})[tab]();if(tab!="cat"||!copen)window.scrollTo(0,0)}
 function rainLine(){const r=lastRain();return r?`🌧️ Última pluja: ${LV[r.lv].toLowerCase()}, ${ago(r.d)}`:"🌧️ Cap pluja registrada"}
+function iconLayout(l,W,H){const aw=W-6,ah=H-4;if(!l.length||aw<8||ah<8)return{p:[],fs:8,hid:l.length};
+ let n=l.length,best;
+ for(;n>=1;n--){best=null;for(let c=1;c<=n;c++){const r=Math.ceil(n/c),sz=Math.min(aw/c,ah/r);if(!best||sz>best.sz)best={c,r,sz}}if(best.sz>=11||n==1)break}
+ const fs=Math.min(22,best.sz*0.8),cw=aw/best.c,ch=ah/best.r,p=[];
+ for(let i=0;i<n;i++){const r=Math.floor(i/best.c),k=Math.min(best.c,n-r*best.c),j=i-r*best.c;p.push([W/2+(j-(k-1)/2)*cw,2+(r+0.5)*ch,l[i]])}
+ return{p,fs,hid:l.length-n}}
 function rMap(){
  const b=S.beds.find(x=>x.id==sel),g=G(),s=SC(),H=g.h*s,st=g.w>40?5:1,q=s*st;
  let svg=`<svg id="sv" viewBox="0 0 360 ${H}"><defs><pattern id="g" width="${q}" height="${q}" patternUnits="userSpaceOnUse"><path d="M${q} 0H0V${q}" fill="none" stroke="var(--bd)" stroke-width=".6"/></pattern></defs><rect width="360" height="${H}" fill="url(#g)"/>`;
  for(const x of S.beds){const stt=status(x),f=stt=="ready"?"var(--rdy)":stt=="grow"?"var(--grow)":"var(--soil)",w=last(x,"w");
   const bad=verdict(pairs((x.crops||[]).map(c=>c.crop)))==-1,X=x.x*s,Y=x.y*s,W=x.w*s,Hh=x.h*s;
-  const em=[...new Set((x.crops||[]).map(c=>CROPS[c.crop][0]))].slice(0,4).join("");
-  svg+=`<g data-id="${x.id}" style="cursor:grab"><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="4" fill="${f}" stroke="${bad?"#c0392b":x.id==sel?"var(--ac)":"var(--mu)"}" stroke-width="${bad||x.id==sel?3:1}"/>
-  <text x="${X+W/2}" y="${Y+Hh/2-4}" text-anchor="middle" dominant-baseline="middle" font-size="${Math.max(8,Math.min(20,Hh/2.4))}">${em}</text>
-  <text x="${X+W/2}" y="${Y+Hh-6}" text-anchor="middle" font-size="9" fill="var(--tx)">${bad?"⚠️ ":""}${needsWater(x)?"💧! ":""}${esc(x.name)}${w?" · 💧"+Math.max(0,diff(w,today()))+"d":""}</text></g>`}
+  const pre=(bad?"⚠️ ":"")+(needsWater(x)?"💧! ":""),lab=Hh>=26;
+  const ic=[...new Set((x.crops||[]).map(c=>CROPS[c.crop][0]))],L=iconLayout(ic,W,Hh-(lab?12:0));
+  let t=pre+x.name+(w?" · 💧"+Math.max(0,diff(w,today()))+"d":"")+(L.hid?" +"+L.hid:"");const mx=Math.max(3,Math.floor((W-4)/5));if(t.length>mx)t=t.slice(0,mx-1)+"…";
+  svg+=`<g data-id="${x.id}" clip-path="url(#c${x.id})" style="cursor:grab"><clipPath id="c${x.id}"><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="4"/></clipPath><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="4" fill="${f}" stroke="${bad?"#c0392b":x.id==sel?"var(--ac)":"var(--mu)"}" stroke-width="${bad||x.id==sel?3:1}"/>`
+  +L.p.map(q=>`<text x="${X+q[0]}" y="${Y+q[1]}" text-anchor="middle" dominant-baseline="central" font-size="${L.fs}">${q[2]}</text>`).join("")
+  +(lab?`<text x="${X+W/2}" y="${Y+Hh-6}" text-anchor="middle" font-size="9" fill="var(--tx)">${esc(t)}</text>`:(pre?`<text x="${X+3}" y="${Y+9}" font-size="8">${pre}</text>`:""))+"</g>"}
  svg+="</svg>";
  m.innerHTML=svg+`<div class="row"><button class="b p" id="add">＋ Afegeix bancal</button><button class="b" id="wall">💧 Regar tot</button></div><div class="mu">Hort: ${nm(g.w)} × ${nm(g.h)} m · <a href="#" id="gl" style="color:var(--ac)">canvia</a> · Arrossega per moure; toca per editar. Quadrícula: ${st} m.</div><div class="mu">${rainLine()}</div>`+(b?sheet(b):"");
  wireMap()}
@@ -376,8 +384,7 @@ function wireMap(){
   const p0=at(ev),ox=b.x,oy=b.y;let mv=false;e.setPointerCapture(ev.pointerId);
   e.onpointermove=v=>{const p=at(v),dx=p.x-p0.x,dy=p.y-p0.y;if(Math.abs(dx)+Math.abs(dy)>4)mv=true;if(!mv)return;
    b.x=sn(Math.max(0,Math.min(g.w-b.w,ox+dx/s)));b.y=sn(Math.max(0,Math.min(g.h-b.h,oy+dy/s)));
-   const r=e.firstElementChild,t=e.querySelectorAll("text");r.setAttribute("x",b.x*s);r.setAttribute("y",b.y*s);
-   t[0].setAttribute("x",(b.x+b.w/2)*s);t[0].setAttribute("y",(b.y+b.h/2)*s-4);t[1].setAttribute("x",(b.x+b.w/2)*s);t[1].setAttribute("y",(b.y+b.h)*s-6)};
+   e.setAttribute("transform","translate("+(b.x-ox)*s+" "+(b.y-oy)*s+")")};
   e.onpointerup=()=>{e.onpointermove=e.onpointerup=null;if(mv)save();sel=b.id;render()}}});
  const b=S.beds.find(x=>x.id==sel);if(!b)return;
  $("#nm").onchange=e=>{b.name=e.target.value;save();render()};
