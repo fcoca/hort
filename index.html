@@ -15,7 +15,7 @@
 *{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,sans-serif;padding:env(safe-area-inset-top,0) 0 80px}
 h1{font-size:20px;margin:0;padding:12px 14px}
 nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0);z-index:5}
-nav button{flex:1;border:0;background:none;color:var(--mu);padding:12px 2px;font-size:13px}nav button.on{color:var(--ac);font-weight:700}
+nav button{flex:1;border:0;background:none;color:var(--mu);padding:12px 0;font-size:12px}nav button.on{color:var(--ac);font-weight:700}
 main{padding:0 12px;max-width:640px;margin:0 auto}.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px}
 .b,select,input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
 .b{cursor:pointer}.p{background:var(--ac);color:#fff;border-color:var(--ac)}.d{color:#c0392b}
@@ -27,14 +27,136 @@ svg{width:100%;height:auto;background:var(--card);border:1px solid var(--bd);bor
 .cr{border:1px solid var(--bd);border-radius:10px;padding:8px 10px;margin:8px 0}
 .v{border-radius:10px;padding:8px 10px;margin:8px 0;font-weight:600}.v2{background:#bfe5b8;color:#14380f}.v1{background:#dff0d6;color:#1f4a17}.v0{background:var(--bg);border:1px solid var(--bd)}.v-1{background:#f6c9c4;color:#6b1a12}
 .vw{background:#cfe6f7;color:#0e3550}
+.ph{width:96px;height:96px;border-radius:10px;background:var(--bg);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;flex:none}.ph img{width:100%;height:100%;object-fit:cover}
 @media(prefers-color-scheme:dark){.vw{background:#1f3a52;color:#cfe6f7}}
 .toast{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:99px;font-size:14px;z-index:9;max-width:90%;text-align:center}
 </style></head><body>
 <h1>🌱 El meu hort</h1>
 <main id="m"></main>
-<nav><button data-t="map">🗺️ Croquis</button><button data-t="rain">🌧️ Pluja</button><button data-t="har">🧺 Collites</button><button data-t="cfg">⚙️ Ajustos</button></nav>
+<nav><button data-t="map">🗺️ Croquis</button><button data-t="rain">🌧️ Pluja</button><button data-t="har">🧺 Collites</button><button data-t="cat">📖 Cultius</button><button data-t="cfg">⚙️ Ajustos</button></nav>
 <script>
-const CROPS={"Tomàquet":["🍅",90,120],"Pebrot":["🫑",90,120],"Albergínia":["🍆",90,120],"Carbassó":["🥒",45,60],"Cogombre":["🥒",55,70],"Mongeta":["🫛",55,75],"Pèsol":["🫛",80,100],"Fava":["🫛",140,180],"Enciam":["🥬",40,60],"Espinacs":["🥬",35,55],"Bleda":["🥬",55,75],"Col":["🥦",90,130],"Bròquil":["🥦",75,100],"Pastanaga":["🥕",80,120],"Remolatxa":["🟣",55,80],"Rave":["🌰",22,35],"Ceba":["🧅",110,150],"Porro":["🧅",110,160],"All":["🧄",180,240],"Patata":["🥔",90,130],"Meló":["🍈",90,120],"Síndria":["🍉",90,115],"Carbassa":["🎃",100,130],"Julivert":["🌿",70,90],"Alfàbrega":["🌿",50,70],"Maduixa":["🍓",90,150],"Altre":["🌱",60,90]};
+const F={S:"Solanàcies",C:"Cucurbitàcies",L:"Lleguminoses",B:"Crucíferes",U:"Umbel·líferes",A:"Al·liàcies",Q:"Amarantàcies",K:"Asteràcies",M:"Lamiàcies",R:"Rosàcies"};
+const RN={"Carbassó":"Carabassó","Carbassa":"Carabassa","Espinacs":"Espinac","Mongeta":"Mongeta tendra"};
+const CROPS={};`Agrella|🌿|50|70|Poligonàcies|Rumex acetosa|Herba perenne de fulles verdes i àcides, de gust llimonós, per a amanides i salses.
+Albergínia|🍆|90|120|S|Solanum melongena|Fruit morat i carnós de forma allargada, que es menja sempre cuit.
+All|🧄|180|240|A|Allium sativum|Bulb dividit en grans, d’olor intensa, base de la cuina mediterrània.
+All elefant|🧄|240|300|A|Allium ampeloprasum|Bulb molt gran, de sabor suau, emparentat amb el porro.
+All tendre|🧄|90|120|A|Allium sativum|All collit jove, abans de formar els grans: tendre i de gust suau.
+Alvocat|🥑|1095|1825|Lauràcies|Persea americana|Arbre de fruit cremós i ric en greixos saludables; no dona collita fins als 3-5 anys.
+Amarant|🌾|60|90|Q|Amaranthus|Planta de fulles comestibles i llavors riques en proteïna.
+Api|🥬|100|130|U|Apium graveolens|Hortalissa de tiges cruixents i aromàtiques, bona crua o en sofregits.
+Api-rave|🌰|150|180|U|Apium graveolens var. rapaceum|Api cultivat per la seva arrel rodona, de sabor intens.
+Arrel de lotus|🌸|150|240|Nelumbonàcies|Nelumbo nucifera|Rizoma cruixent de la flor de lotus, de cultiu aquàtic, amb forats característics.
+Bardana|🌿|120|150|K|Arctium lappa|Planta d’arrel llarga i fosca, de gust terrós (gobo).
+Batata|🍠|120|150|Convolvulàcies|Ipomoea batatas|Tubercle dolç de pell rogenca i polpa taronja o blanca; també dit moniato.
+Bimi|🥦|70|90|B|Brassica oleracea|Híbrid de bròquil i bròquil xinès, de tiges llargues, tendres i dolces.
+Blat de moro dolç|🌽|80|100|Poàcies|Zea mays|Panotxa de grans tendres i dolços que es mengen bullits o a la brasa.
+Bleda|🥬|55|75|Q|Beta vulgaris|Hortalissa de fulles grosses i penca blanca, molt present a la cuina catalana.
+Bok choy|🥬|45|60|B|Brassica rapa subsp. chinensis|Col xinesa de penques blanques i fulles verdes, suau i cruixent.
+Borratja|🌿|50|70|Boraginàcies|Borago officinalis|Planta de fulles peludes i flors blaves comestibles, de gust fresc a cogombre.
+Bròquil|🥦|75|100|B|Brassica oleracea var. italica|Inflorescència verda i compacta, rica en vitamines, que es menja cuita.
+Bròquil xinès|🥦|50|70|B|Brassica oleracea var. alboglabra|Hortalissa de tiges i fulles verdes, lleugerament amargant (gai lan).
+Brots d’alfals|🌱|5|7|L|Medicago sativa|Germinats tendres i cruixents d’alfals, per a amanides i entrepans.
+Brots de bambú|🎍|365|1095|Poàcies|Bambusoideae|Brots tendres de bambú, cruixents, típics de la cuina asiàtica.
+Brots de bròquil|🌱|5|8|B|Brassica oleracea var. italica|Germinats de bròquil, rics en sulforafà, per menjar crus.
+Brots de ceba|🌱|20|30|A|Allium cepa|Fulles verdes i tendres de ceba collides joves, de sabor suau.
+Brots de falguera|🌿|365|730|Onocleàcies|Matteuccia struthiopteris|Brots enrotllats de falguera abans de desplegar-se, comestibles només cuits.
+Brots de rave|🌱|6|10|B|Raphanus sativus|Germinats picants de rave, que es mengen crus.
+Brots de soja|🌱|3|6|L|Glycine max|Germinats de soja, tendres i cruixents, molt usats en cuina asiàtica.
+Calçot|🧅|240|300|A|Allium cepa|Ceba tendra i allargada que es crema a la brasa i es menja amb salsa romesco.
+Canonges|🥬|40|60|Valerianàcies|Valerianella locusta|Fulles petites i tendres, de gust suau, pròpies de l’hivern.
+Caputxina|🌼|60|90|Tropeolàcies|Tropaeolum majus|Planta de flors i fulles comestibles, de gust picant semblant al dels créixens.
+Carabassa|🎃|100|130|C|Cucurbita maxima|Fruit gran de pell dura i polpa dolça i taronja, que es menja cuit.
+Carabassó|🥒|45|60|C|Cucurbita pepo|Fruit tendre, allargat i verd, de polpa suau.
+Card|🥬|120|150|K|Cynara cardunculus|Hortalissa de penques llargues i carnoses, que es mengen bullides.
+Carxofa|🌿|150|240|K|Cynara scolymus|Capoll floral comestible, tendre i lleugerament amarg.
+Ceba|🧅|110|150|A|Allium cepa|Bulb de capes carnoses, base de molts plats.
+Cebollí|🌱|60|90|A|Allium schoenoprasum|Herba aromàtica de fulles primes i buides, de gust suau de ceba.
+Chayote|🥒|150|210|C|Sechium edule|Fruit verd i arrugat de polpa tendra i suau, d’una enfiladissa tropical.
+Cogombre|🥒|55|70|C|Cucumis sativus|Fruit allargat i refrescant, que es menja cru.
+Col|🥦|90|130|B|Brassica oleracea|Hortalissa de fulles grosses, bona cuita o fermentada.
+Col arrissada|🥬|60|90|B|Brassica oleracea var. sabellica|Col de fulles rinxolades i rústiques, molt nutritiva (kale).
+Col de Brussel·les|🥬|120|150|B|Brassica oleracea var. gemmifera|Petits cabdells que creixen al llarg de la tija, de sabor intens.
+Col de cabdell|🥬|90|130|B|Brassica oleracea var. capitata|Col de fulles molt apretades que formen una bola compacta.
+Col gallega|🥬|70|100|B|Brassica oleracea var. viridis|Col de fulles verdes i grans, sense cabdell, típica de caldos.
+Col llombarda|🥬|90|130|B|Brassica oleracea var. capitata f. rubra|Col de cabdell de color morat, que es menja crua o cuita.
+Col milanesa|🥬|90|130|B|Brassica oleracea var. sabauda|Col de fulles arrugades i verdes, de cabdell fluix i sabor suau.
+Col verda|🥬|70|100|B|Brassica oleracea var. viridis|Col de fulles verdes, ideal per a estofats i brous.
+Col xinesa|🥬|60|80|B|Brassica rapa subsp. pekinensis|Col allargada de fulles clares i tendres, suau i cruixent.
+Coliflor|🥦|80|120|B|Brassica oleracea var. botrytis|Inflorescència blanca i compacta, suau, que es menja cuita.
+Col-rave|🥬|60|80|B|Brassica oleracea var. gongylodes|Tija engruixida en forma de bola, cruixent i dolça.
+Créixens|🌿|40|60|B|Nasturtium officinale|Planta aquàtica de fulles picants, per a amanides i sopes.
+Cúrcuma fresca|🟠|240|300|Zingiberàcies|Curcuma longa|Rizoma taronja i aromàtic, usat com a colorant i espècia.
+Daikon|⚪|50|70|B|Raphanus sativus var. longipinnatus|Rave llarg i blanc, suau i sucós, d’origen japonès.
+Dent de lleó|🌼|60|90|K|Taraxacum officinale|Planta de fulles dentades i lleugerament amargues, per a amanides.
+Endívia|🥬|90|120|K|Cichorium intybus var. foliosum|Cabdell allargat i pàl·lid de fulles cruixents i amargants.
+Enciam|🥬|40|60|K|Lactuca sativa|Hortalissa de fulles tendres, base de les amanides.
+Escalunya|🧅|90|120|A|Allium cepa var. aggregatum|Ceba petita i allargada, més dolça i fina que la ceba comuna.
+Escarola|🥬|70|90|K|Cichorium endivia|Fulles arrissades i lleugerament amargues, per a amanides.
+Escorçonera|🥕|120|150|K|Scorzonera hispanica|Arrel llarga i negra de polpa blanca i sabor delicat.
+Espàrrec|🌿|730|1095|Asparagàcies|Asparagus officinalis|Planta perenne de turions tendres comestibles; no se sol collir fins al 2n-3r any.
+Espinac|🥬|35|55|Q|Spinacia oleracea|Fulles verd fosc riques en ferro, que es mengen crues o cuites.
+Espinac de Malabar|🥬|50|70|Basel·làcies|Basella alba|Enfiladissa tropical de fulles carnoses i mucilaginoses.
+Espinac de Nova Zelanda|🥬|55|75|Aizoàcies|Tetragonia tetragonioides|Planta rastrera de fulles carnoses que resisteix bé la calor.
+Fava|🫛|140|180|L|Vicia faba|Llegum de gra gros, tendre quan és verd i sec quan madura.
+Fava tendra|🫛|120|150|L|Vicia faba|Faves collides verdes, amb la beina i el gra tendres.
+Fisalis|🟡|100|130|S|Physalis peruviana|Baia petita de gust dolç i àcid, dins d’un calze de paper.
+Flor de carabassa|🌼|50|70|C|Cucurbita maxima|Flor groga comestible, que es menja arrebossada o farcida.
+Flor de carabassó|🌼|45|60|C|Cucurbita pepo|Flor groga comestible del carabassó, delicada i de sabor suau.
+Fonoll|🌿|80|110|U|Foeniculum vulgare|Bulb carnós i aromàtic de sabor anisat.
+Fulles de mostassa|🥬|25|40|B|Brassica juncea|Fulles verdes de sabor picant, que s’usen crues o saltades.
+Gingebre|🟤|240|300|Zingiberàcies|Zingiber officinale|Rizoma picant i aromàtic, fresc o sec.
+Grelo|🥬|60|90|B|Brassica rapa subsp. rapa|Fulles i inflorescències tendres del nap, de sabor lleugerament amarg.
+Iuca|🥔|240|360|Euforbiàcies|Manihot esculenta|Arrel farinosa i rica en midó; s’ha de cuinar sempre.
+Jícama|🥔|150|180|L|Pachyrhizus erosus|Arrel cruixent i dolça, amb un sabor semblant al de la poma.
+Komatsuna|🥬|30|45|B|Brassica rapa var. perviridis|Verdura de fulles verdes d’origen japonès, suau i de creixement ràpid.
+Luffa|🥒|120|150|C|Luffa aegyptiaca|Fruit comestible quan és jove; madur, s’eixuga i es converteix en esponja vegetal.
+Maca|🥔|240|270|B|Lepidium meyenii|Arrel andina de gust terrós, consumida com a superaliment.
+Malanga|🥔|240|300|Aràcies|Xanthosoma sagittifolium|Tubercle tropical ric en midó, de polpa blanca o groga.
+Meló amarg|🥒|70|100|C|Momordica charantia|Fruit verd i arrugat de sabor molt amarg, típic de l’Àsia.
+Mizuna|🥬|30|45|B|Brassica rapa var. nipposinica|Fulles verdes en forma de ploma, de sabor lleugerament picant.
+Mongeta tendra|🫛|55|75|L|Phaseolus vulgaris|Llegum que es menja amb tota la beina, verd i tendre.
+Moniato|🍠|120|150|Convolvulàcies|Ipomoea batatas|Tubercle dolç de polpa taronja, blanca o morada, que es menja cuit.
+Nabiza|🥬|40|60|B|Brassica rapa subsp. rapa|Fulles tendres del nap, que es mengen bullides o saltades.
+Nap|⚪|50|70|B|Brassica rapa subsp. rapa|Arrel rodona, blanca i morada, de sabor lleugerament picant.
+Napicol|⚪|90|120|B|Brassica napus var. napobrassica|Arrel gran, semblant al nap però més dolça i carnosa.
+Nopal|🌵|365|730|Cactàcies|Opuntia ficus-indica|Penca tendra de figuera de moro, que es menja cuita.
+Nyàmera|🥔|240|300|Aràcies|Colocasia esculenta|Tubercle tropical ric en midó (taro), que s’ha de cuinar bé.
+Nyame|🥔|240|300|Dioscoreàcies|Dioscorea|Tubercle gros i farinós de les plantes del gènere Dioscorea.
+Oca|🥔|180|240|Oxalidàcies|Oxalis tuberosa|Petit tubercle andí de colors vius i gust lleugerament àcid.
+Ocra|🫛|60|90|Malvàcies|Abelmoschus esculentus|Beina verda i allargada, mucilaginosa, que espesseix els guisats.
+Ortiga|🌿|40|60|Urticàcies|Urtica dioica|Planta de fulles urticants que, un cop cuita, és tendra i nutritiva.
+Pak choi|🥬|40|55|B|Brassica rapa subsp. chinensis|Verdura xinesa de tija carnosa i fulles verd fosc, de creixement ràpid.
+Palmito|🌴|1095|1825|Arecàcies|Bactris gasipaes|Cor tendre i blanc de certes palmeres, cruixent i suau.
+Pastanaga|🥕|80|120|U|Daucus carota|Arrel taronja i dolça, rica en betacarotè.
+Patata|🥔|90|130|S|Solanum tuberosum|Tubercle farinós, base de l’alimentació a molts països.
+Pebrot|🫑|90|120|S|Capsicum annuum|Fruit buit i carnós, verd, vermell o groc, dolç o picant.
+Pèsol|🫛|80|100|L|Pisum sativum|Llegum de grans verds i dolços dins d’una beina.
+Porro|🧅|110|160|A|Allium ampeloprasum|Tija blanca i llarga de sabor suau, per a sopes i brous.
+Radicchio|🥬|90|110|K|Cichorium intybus|Xicoira vermella de fulles amargants i cruixents.
+Rave|🌰|22|35|B|Raphanus sativus|Arrel petita, vermella i picant, de creixement molt ràpid.
+Rave picant|🌰|240|365|B|Armoracia rusticana|Arrel blanca de sabor fort i picant, que es ratlla com a condiment.
+Ravenet|🌰|22|35|B|Raphanus sativus|Rave petit i rodó, cruixent i lleugerament picant.
+Remolatxa|🟣|55|80|Q|Beta vulgaris|Arrel dolça de color vermell intens, crua o cuita.
+Romanesco|🥦|80|100|B|Brassica oleracea var. botrytis|Inflorescència verda en espiral fractal, de sabor suau entre coliflor i bròquil.
+Ruca|🥬|30|45|B|Eruca vesicaria|Fulles verdes de sabor picant i lleugerament amarg.
+Ruibarbre|🌿|365|730|Poligonàcies|Rheum rhabarbarum|Penques vermelles d’àcid agradable, que es mengen cuites; les fulles són tòxiques.
+Salsifí|🥕|120|150|K|Tragopogon porrifolius|Arrel llarga i blanca de sabor delicat, semblant a l’ostra.
+Soja verda|🫛|80|100|L|Glycine max|Beines tendres de soja (edamame), que es mengen bullides.
+Tatsoi|🥬|35|50|B|Brassica rapa subsp. narinosa|Roseta de fulles fosques i tendres, de sabor suau.
+Tirabec|🫛|60|90|L|Pisum sativum var. saccharatum|Pèsol de beina tendra i dolça, que es menja sencera.
+Tomàquet|🍅|90|120|S|Solanum lycopersicum|Fruit sucós, vermell quan madura, imprescindible a la cuina.
+Verdolaga|🌿|40|60|Portulacàcies|Portulaca oleracea|Planta de fulles carnoses i lleugerament àcides, rica en omega-3.
+Xicoira|🥬|80|110|K|Cichorium intybus|Planta de fulles amargues i arrel torrada comestible.
+Xirivia|🥕|120|180|U|Pastinaca sativa|Arrel blanca i dolça, semblant a la pastanaga.
+Xufa|🌰|150|180|Ciperàcies|Cyperus esculentus|Tubercle petit i dolç, base de l’orxata.
+Julivert|🌿|70|90|U|Petroselinum crispum|Herba aromàtica de fulles verdes, molt usada com a condiment.
+Alfàbrega|🌿|50|70|M|Ocimum basilicum|Herba aromàtica de gust dolç i fresc, ideal amb tomàquet.
+Maduixa|🍓|90|150|R|Fragaria × ananassa|Fruit vermell i dolç d’una planta baixa i rastrera.
+Meló|🍈|90|120|C|Cucumis melo|Fruit dolç i aromàtic, de polpa sucosa.
+Síndria|🍉|90|115|C|Citrullus lanatus|Fruit gran, refrescant, de polpa vermella i aquosa.`.split("\n").forEach(l=>{const[n,e,a,b,f,sc,d]=l.split("|");CROPS[n]=[e,+a,+b,F[f]||f,d,sc]});
+CROPS.Altre=["🌱",60,90,"",""];
+const CN=Object.keys(CROPS).filter(k=>k!="Altre").sort((a,b)=>a.localeCompare(b,"ca")).concat("Altre");
 /* Associacions de cultius: 2 = molt bona, 1 = bona, -1 = convé evitar; la resta = neutra */
 const PAIRS=[["Tomàquet","Alfàbrega",2],["Pebrot","Alfàbrega",2],["Albergínia","Alfàbrega",1],["Tomàquet","Pastanaga",1],["Tomàquet","Julivert",1],["Tomàquet","Ceba",1],["Tomàquet","All",1],["Tomàquet","Enciam",1],["Tomàquet","Espinacs",1],
 ["Tomàquet","Col",-1],["Tomàquet","Bròquil",-1],["Tomàquet","Patata",-1],["Tomàquet","Pèsol",-1],["Pebrot","Patata",-1],["Albergínia","Patata",-1],["Pebrot","Ceba",1],["Pebrot","Pastanaga",1],["Pebrot","Julivert",1],["Albergínia","Mongeta",2],
@@ -47,8 +169,10 @@ const PAIRS=[["Tomàquet","Alfàbrega",2],["Pebrot","Alfàbrega",2],["Albergíni
 ["Maduixa","All",2],["Maduixa","Ceba",1],["Maduixa","Espinacs",1],["Maduixa","Porro",1],
 ["Bleda","Ceba",1],["Remolatxa","Ceba",1],["Remolatxa","All",1],["Remolatxa","Mongeta",-1],["Porro","Remolatxa",1],
 ["All","Pèsol",-1],["All","Mongeta",-1],["All","Fava",-1],["Ceba","Pèsol",-1],["Ceba","Mongeta",-1],["Ceba","Fava",-1],["Ceba","All",-1],["Ceba","Porro",-1],["Porro","All",-1],["Porro","Pèsol",-1],["Porro","Mongeta",-1],["Porro","Fava",-1],
-["Patata","Fava",1],["Patata","Col",1],["Pèsol","Rave",1],["Pèsol","Fava",0]];
-const CP={};PAIRS.forEach(([a,b,v])=>{CP[a+"|"+b]=v;CP[b+"|"+a]=v});
+["Patata","Fava",1],["Patata","Col",1],["Pèsol","Rave",1],["Pèsol","Fava",0],["Blat de moro dolç","Mongeta",2],["Blat de moro dolç","Carbassa",2],["Blat de moro dolç","Carbassó",1],["Blat de moro dolç","Cogombre",1],["Blat de moro dolç","Tomàquet",-1]];
+const N=n=>RN[n]||n,CP={};PAIRS.forEach(([a,b,v])=>{CP[N(a)+"|"+N(b)]=v;CP[N(b)+"|"+N(a)]=v});
+const BASE={"Col arrissada":"Col","Col de Brussel·les":"Col","Col de cabdell":"Col","Col gallega":"Col","Col llombarda":"Col","Col milanesa":"Col","Col verda":"Col","Col xinesa":"Col","Coliflor":"Col","Col-rave":"Col","Romanesco":"Col","Bimi":"Bròquil","Bròquil xinès":"Bròquil","Brots de bròquil":"Bròquil","Calçot":"Ceba","Escalunya":"Ceba","Cebollí":"Ceba","Brots de ceba":"Ceba","All tendre":"All","All elefant":"All","Ravenet":"Rave","Daikon":"Rave","Brots de rave":"Rave","Fava tendra":"Fava","Tirabec":"Pèsol","Soja verda":"Mongeta tendra","Fisalis":"Tomàquet","Xirivia":"Pastanaga","Flor de carabassa":"Carabassa","Flor de carabassó":"Carabassó","Chayote":"Cogombre","Luffa":"Cogombre","Meló amarg":"Cogombre","Espinac de Nova Zelanda":"Espinac","Api-rave":"Api"};
+const FR=[["S","B",-1],["A","L",-1],["A","A",-1],["U","A",1],["U","S",1],["K","B",1],["K","U",1],["K","A",1],["K","C",1],["K","L",1],["L","B",1],["L","C",1],["A","B",1],["A","Q",1],["A","S",1],["A","R",1],["A","C",1],["M","S",1],["B","R",-1]].map(([x,y,v])=>[F[x],F[y],v]);
 const RT={2:["🟢🟢","Molt bona"],1:["🟢","Bona"],0:["⚪","Neutra"],"-1":["🔴","Convé evitar"]};
 const LV=["Gens","Poca","Molta"],LI=["☀️","🌦️","🌧️"];
 let S={beds:[],rain:[],mm:{},loc:null,wx:null,garden:null},sel=null,tab="map",tm=null,wxMsg="",geo=[];
@@ -65,7 +189,8 @@ const uid=()=>Math.random().toString(36).slice(2,9);
 const nm=x=>(Math.round(x*10)/10).toString().replace(".",",");
 const lvOf=mm=>mm<0.5?0:mm<5?1:2;
 function save(){try{localStorage.setItem("hort2",JSON.stringify(S))}catch(e){}}
-function mig(){if(!S.garden){S.garden={w:9,h:10};S.beds.forEach(b=>["x","y","w","h"].forEach(k=>b[k]=Math.round(b[k]/40*10)/10))}}
+function mn(){S.beds.forEach(b=>{(b.crops||[]).forEach(c=>c.crop=RN[c.crop]||c.crop);(b.log||[]).forEach(x=>{if(x.t=="h"&&x.n)x.n=RN[x.n]||x.n})})}
+function mig(){mn();if(!S.garden){S.garden={w:9,h:10};S.beds.forEach(b=>["x","y","w","h"].forEach(k=>b[k]=Math.round(b[k]/40*10)/10))}}
 function load(){try{const j=localStorage.getItem("hort2");if(j)S=Object.assign(S,JSON.parse(j))}catch(e){}mig()}
 const G=()=>S.garden,SC=()=>360/G().w,sn=v=>Math.round(v*10)/10;
 
@@ -86,7 +211,10 @@ async function fetchWx(){
  render()}
 
 /* ---- Cultius i combinacions ---- */
-const rate=(a,b)=>a==b?null:(CP[a+"|"+b]??0);
+function rate(a,b){const ba=BASE[a]||a,bb=BASE[b]||b;if(ba==bb)return 0;
+ for(const[x,y]of[[a,b],[ba,b],[a,bb],[ba,bb]]){const v=CP[x+"|"+y];if(v!==undefined)return v}
+ const fa=(CROPS[a]||[])[3],fb=(CROPS[b]||[])[3];if(!fa||!fb)return 0;
+ const r=FR.find(([x,y])=>(x==fa&&y==fb)||(x==fb&&y==fa));return r?r[2]:0}
 function span(c){if(!c.sown)return null;const e=CROPS[c.crop]||CROPS.Altre,x=c.crop=="Altre"&&c.days?+c.days:null;
  return[add(c.sown,x||e[1]),add(c.sown,x?x+20:e[2])]}
 function status(b){const t=today();let st="empty";for(const c of b.crops||[]){const s=span(c);if(!s)continue;if(t>=s[0])return"ready";st="grow"}return st}
@@ -97,7 +225,7 @@ function compat(ps,title){const v=verdict(ps);if(v===null)return"";
  const V={2:"Molt bona combinació",1:"Bona combinació",0:"Combinació neutra","-1":"Convé evitar alguna parella"};
  return `<div class="v v${v}">${RT[v][0]} ${title||""}${V[v]}</div>`+ps.map(p=>`<div class="hist"><span>${CROPS[p[0]][0]} ${p[0]} + ${CROPS[p[1]][0]} ${p[1]}</span><span>${RT[p[2]][0]} ${RT[p[2]][1]}</span></div>`).join("")}
 function last(b,t){const l=(b.log||[]).filter(x=>x.t==t).map(x=>x.d).sort();return l.length?l[l.length-1]:null}
-const FAM={};[["Solanàcies","Tomàquet Pebrot Albergínia Patata"],["Cucurbitàcies","Carbassó Cogombre Meló Síndria Carbassa"],["Lleguminoses","Mongeta Pèsol Fava"],["Crucíferes","Col Bròquil Rave"],["Umbel·líferes","Pastanaga Julivert"],["Al·liàcies","Ceba Porro All"],["Quenopodiàcies","Espinacs Bleda Remolatxa"],["Asteràcies","Enciam"],["Lamiàcies","Alfàbrega"],["Rosàcies","Maduixa"]].forEach(([f,l])=>l.split(" ").forEach(n=>FAM[n]=f));
+const FAM={};for(const k in CROPS)if(CROPS[k][3])FAM[k]=CROPS[k][3];
 function needsWater(b){
  const sw=(b.crops||[]).filter(c=>c.sown).map(c=>c.sown).sort();if(!sw.length)return null;
  const t=today(),w=last(b,"w"),ref=w||sw[0],n=diff(ref,t),nx=add(t,1),near=(S.wx?.days||[]).filter(x=>x.d==t||x.d==nx);
@@ -111,7 +239,7 @@ function toast(t){const e=document.createElement("div");e.className="toast";e.te
 /* ---- Vistes ---- */
 function render(){
  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x.dataset.t==tab));
- ({map:rMap,rain:rRain,har:rHar,cfg:rCfg})[tab]();window.scrollTo(0,0)}
+ ({map:rMap,rain:rRain,har:rHar,cat:rCat,cfg:rCfg})[tab]();if(tab!="cat"||!copen)window.scrollTo(0,0)}
 function rainLine(){const r=lastRain();return r?`🌧️ Última pluja: ${LV[r.lv].toLowerCase()}, ${ago(r.d)}`:"🌧️ Cap pluja registrada"}
 function rMap(){
  const b=S.beds.find(x=>x.id==sel),g=G(),s=SC(),H=g.h*s,st=g.w>40?5:1,q=s*st;
@@ -129,7 +257,7 @@ function sheet(b){
  b.crops=b.crops||[];const lg=(b.log||[]).slice().sort((p,q)=>p.d<q.d?1:-1),t=today();
  const rows=b.crops.map((c,i)=>{const s=span(c),e=CROPS[c.crop];
   const msg=s?(t<s[0]?"d’aquí "+diff(t,s[0])+" dies":t<=s[1]?"🎉 ja es pot collir":"collita passada"):"";
-  return `<div class="cr"><div class="row"><b class="g1">${e[0]} ${esc(c.crop)}</b><button class="b d" data-cd="${i}">✕</button></div>`+
+  return `<div class="cr"><div class="row"><b class="g1">${e[0]} ${esc(c.crop)}</b><button class="b" data-ci="${esc(c.crop)}" aria-label="Fitxa del cultiu">ℹ️</button><button class="b d" data-cd="${i}">✕</button></div>`+
   (c.sown?`<div class="row"><label>Sembrat el</label><input type="date" data-cs="${i}" value="${c.sown}"><span class="mu">${ago(c.sown)}</span></div>`+
    (c.crop=="Altre"?`<div class="row"><label>Dies fins a collir</label><input type="number" data-cy="${i}" value="${c.days||""}" style="width:90px"></div>`:"")+
    (s?`<div>🧺 ${fmt(s[0])} – ${fmt(s[1])} <span class="mu">· ${msg}</span></div>`:"")
@@ -138,7 +266,7 @@ function sheet(b){
  return `<div class="card" style="margin-top:12px"><div class="row"><input id="nm" class="g1" value="${esc(b.name)}" aria-label="Nom"><button class="b d" id="del">🗑️</button></div>
  ${nw?`<div class="v vw">💧! Convé regar: ${nw.n} dies des de ${nw.ref}, només ${nm(nw.mm)} mm de pluja${nw.hot?" i calor (>25 °C)":""}</div>`:""}
  <b>Cultius del bancal</b>${rows||'<div class="mu">Encara no hi ha cap cultiu.</div>'}
- <div class="row"><select id="cr" class="g1"><option value="">Afegeix un cultiu…</option>${Object.keys(CROPS).map(k=>`<option>${k}</option>`).join("")}</select></div>
+ <div class="row"><select id="cr" class="g1"><option value="">Afegeix un cultiu…</option>${CN.map(k=>`<option>${esc(k)}</option>`).join("")}</select></div>
  <div id="pv"></div>
  <div class="row" id="addrow" hidden><input type="date" id="sd" value="${t}"><button class="b p" data-ad="1">🌱 Plantat</button><button class="b" data-ad="0">📝 Vull plantar</button></div>
  ${ps.length?`<b>Simbiosi</b>${compat(ps)}`:""}
@@ -180,6 +308,7 @@ function rCfg(){
  <div class="row"><button class="b" id="gps">📡 Usa la ubicació del mòbil</button></div>
  <div id="gr">${geo.map((x,i)=>`<div class="hist"><span>${esc(x.name)}${x.admin1?", "+esc(x.admin1):""} (${esc(x.country||"")})</span><button class="b" data-gi="${i}">Tria</button></div>`).join("")}</div>
  <div class="mu">La pluja ve d’Open-Meteo (gratuït, sense clau d’API).</div></div>
+ <div class="card"><b>📷 Fotos dels cultius</b><div class="mu">Les fotos vénen de la Viquipèdia. Descarrega-les un cop amb connexió i després es veuran també sense internet.</div><div class="row"><button class="b" id="ph">Descarrega les fotos</button></div><div class="mu" id="pg"></div></div>
  <div class="card"><b>💾 Còpia de seguretat</b><div class="mu">Les dades es guarden només en aquest navegador. Fes-ne una còpia de tant en tant.</div>
  <div class="row"><button class="b" id="ex">⬇️ Exportar dades</button><button class="b" id="im">⬆️ Importar dades</button><input type="file" id="fi" accept=".json" hidden></div></div>`;
  const gd=(k,id)=>$(id).onchange=e=>{const v=Math.max(1,Math.min(200,+e.target.value||G()[k]));G()[k]=v;
@@ -191,6 +320,12 @@ function rCfg(){
  m.querySelectorAll("[data-gi]").forEach(e=>e.onclick=()=>{const x=geo[+e.dataset.gi];pick(x.name+(x.admin1?", "+x.admin1:""),x.latitude,x.longitude)});
  $("#gps").onclick=()=>navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>pick("La meva ubicació",p.coords.latitude,p.coords.longitude),()=>alert("No s’ha pogut obtenir la ubicació.")):alert("Aquest navegador no ho permet.");
  $("#ex").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:"application/json"}));a.download="hort-backup-"+today()+".json";a.click()};
+ $("#ph").onclick=async()=>{const bt=$("#ph"),say=t=>{const x=$("#pg");if(x)x.textContent=t};bt.disabled=true;let n=0,ok=0;
+  for(const k of CN){if(k=="Altre")continue;n++;say("Descarregant "+n+"/"+(CN.length-1)+"…");
+   if(INFO[k]&&INFO[k].no)delete INFO[k];const i=await getInfo(k);
+   if(i===null){say("Sense connexió. Torna-ho a provar més tard.");bt.disabled=false;return}
+   if(i.img){ok++;try{await fetch(i.img,{mode:"cors"})}catch(e){}}}
+  bt.disabled=false;say("Fet: "+ok+" fotos desades per a ús sense connexió.")};
  $("#im").onclick=()=>$("#fi").click();
  $("#fi").onchange=e=>{const f=e.target.files[0];e.target.value="";if(!f)return;const r=new FileReader();
   r.onload=()=>{let j;try{j=JSON.parse(r.result)}catch(x){}
@@ -199,6 +334,32 @@ function rCfg(){
    if(!confirm("Això sobreescriurà totes les dades actuals de l’app. Vols continuar?"))return;
    S=Object.assign({beds:[],rain:[],mm:{},loc:null,wx:null,garden:null},j);mig();sel=null;save();tab="map";render();toast("Dades importades")};
   r.readAsText(f)}}
+
+/* ---- Catàleg de cultius i fotos (Viquipèdia) ---- */
+let INFO={},cq="",copen=null;try{INFO=JSON.parse(localStorage.getItem("hortinfo")||"{}")}catch(e){}
+const saveInfo=()=>{try{localStorage.setItem("hortinfo",JSON.stringify(INFO))}catch(e){}};
+const nz=t=>t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+async function getInfo(n){const i=INFO[n];if(i&&(i.img||i.no))return i;
+ for(const t of[CROPS[n][5],n]){if(!t)continue;
+  try{const r=await fetch("https://ca.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(t.replace(/ /g,"_")));
+   if(!r.ok)continue;const j=await r.json();if(j.type=="disambiguation"||!j.thumbnail)continue;
+   INFO[n]={img:j.thumbnail.source,url:(j.content_urls&&j.content_urls.desktop&&j.content_urls.desktop.page)||""};saveInfo();return INFO[n]}
+  catch(e){return null}}
+ INFO[n]={no:1};saveInfo();return INFO[n]}
+function phImg(e,i){e.innerHTML=`<img src="${esc(i.img)}" alt="" crossorigin="anonymous" loading="lazy" onerror="this.parentNode.textContent=this.parentNode.dataset.em">`}
+function fillPh(root){root.querySelectorAll("[data-ph]").forEach(e=>{const n=e.dataset.ph,i=INFO[n];
+ if(i&&i.img){phImg(e,i);return}if(i&&i.no)return;
+ getInfo(n).then(x=>{if(x&&x.img&&e.isConnected)phImg(e,x)})})}
+function cropCard(n){const c=CROPS[n],i=INFO[n]||{};
+ return `<div class="cr" style="cursor:pointer"><div class="row" style="flex-wrap:nowrap"><div class="ph" data-ph="${esc(n)}" data-em="${c[0]}">${c[0]}</div><div class="g1"><b>${esc(n)}</b>${c[5]?`<div class="mu"><i>${esc(c[5])}</i></div>`:""}<div class="mu">${esc(c[3]||"")}</div><div class="mu">🧺 Collita: ${c[1]}–${c[2]} dies${c[1]>=365?" (cultiu de diversos anys)":""}</div></div></div><div>${esc(c[4])}</div>${i.url?`<div class="mu"><a href="${esc(i.url)}" target="_blank" rel="noopener" style="color:var(--ac)">Més informació a la Viquipèdia</a></div>`:""}</div>`}
+function rCat(){
+ m.innerHTML=`<div class="row"><input id="cs" class="g1" type="search" placeholder="Cerca entre ${CN.length-1} cultius…" value="${esc(cq)}"></div><div id="cl"></div>`;
+ const draw=()=>{const l=CN.filter(n=>n!="Altre"&&nz(n).includes(nz(cq))),cl=$("#cl");
+  cl.innerHTML=l.map(n=>n==copen?cropCard(n):`<div class="hist" data-co="${esc(n)}" style="cursor:pointer;padding:8px 0"><span>${CROPS[n][0]} ${esc(n)}</span><span class="mu">${esc(CROPS[n][3]||"")}</span></div>`).join("")||'<div class="mu">Cap resultat.</div>';
+  cl.querySelectorAll("[data-co]").forEach(e=>e.onclick=()=>{copen=e.dataset.co;draw()});
+  const o=cl.querySelector(".cr");if(o){o.onclick=ev=>{if(ev.target.tagName!="A"){copen=null;draw()}};if(!cq)o.scrollIntoView({block:"center"})}
+  fillPh(cl)};
+ $("#cs").oninput=e=>{cq=e.target.value;draw()};draw()}
 
 /* ---- Interacció del croquis ---- */
 function wireMap(){
@@ -223,18 +384,19 @@ function wireMap(){
  $("#bw").onchange=e=>{b.w=Math.max(0.2,Math.min(g.w,sn(+e.target.value||b.w)));b.x=sn(Math.min(b.x,g.w-b.w));save();render()};
  $("#bh").onchange=e=>{b.h=Math.max(0.2,Math.min(g.h,sn(+e.target.value||b.h)));b.y=sn(Math.min(b.y,g.h-b.h));save();render()};
  $("#cr").onchange=e=>{const c=e.target.value;$("#addrow").hidden=!c;
-  $("#pv").innerHTML=c?(b.crops.length?compat(pairs(b.crops.map(x=>x.crop).concat(c),c),"Amb el que ja hi ha: "):'<div class="mu">Primer cultiu del bancal.</div>')+rotWarn(b,c):""};
+  $("#pv").innerHTML=c?`<div class="mu">${CROPS[c][0]} ${esc(CROPS[c][4]||"")}</div>`+(b.crops.length?compat(pairs(b.crops.map(x=>x.crop).concat(c),c),"Amb el que ja hi ha: "):'<div class="mu">Primer cultiu del bancal.</div>')+rotWarn(b,c):""};
  m.querySelectorAll("[data-ad]").forEach(e=>e.onclick=()=>{const c=$("#cr").value;if(!c)return;
   b.crops.push({crop:c,sown:e.dataset.ad=="1"?($("#sd").value||today()):""});save();render()});
  m.querySelectorAll("[data-cd]").forEach(e=>e.onclick=()=>{const c=b.crops.splice(+e.dataset.cd,1)[0];
   if(c&&c.sown)(b.log=b.log||[]).push({k:uid(),t:"h",d:today(),n:c.crop,s:c.sown});save();render()});
+ m.querySelectorAll("[data-ci]").forEach(e=>e.onclick=()=>{cq="";copen=e.dataset.ci;tab="cat";render()});
  m.querySelectorAll("[data-cp]").forEach(e=>e.onclick=()=>{b.crops[+e.dataset.cp].sown=today();save();render()});
  m.querySelectorAll("[data-cs]").forEach(e=>e.onchange=()=>{b.crops[+e.dataset.cs].sown=e.value;save();render()});
  m.querySelectorAll("[data-cy]").forEach(e=>e.onchange=()=>{b.crops[+e.dataset.cy].days=e.value;save();render()});
  m.querySelectorAll("[data-lg]").forEach(e=>e.onclick=()=>{const t=e.dataset.lg;(b.log=b.log||[]).push({k:uid(),t,d:$("#ld").value||today(),n:t=="t"?$("#tn").value:""});save();render()});
  m.querySelectorAll("[data-rm]").forEach(e=>e.onclick=()=>{b.log=b.log.filter(x=>x.k!=e.dataset.rm);save();render()});
  $("#del").onclick=()=>{if(confirm("Eliminar "+b.name+"?")){S.beds=S.beds.filter(x=>x!=b);sel=null;save();render()}}}
-document.querySelectorAll("nav button").forEach(e=>e.onclick=()=>{tab=e.dataset.t;render()});
+document.querySelectorAll("nav button").forEach(e=>e.onclick=()=>{tab=e.dataset.t;if(tab=="cat")copen=null;render()});
 load();render();
 if(S.loc&&(!S.wx||Date.now()-S.wx.t>36e5))fetchWx();
 if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
