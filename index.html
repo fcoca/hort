@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ca"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#3f7d3a">
+<meta name="theme-color" content="#2f4a33">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -10,30 +10,41 @@
 <meta name="apple-mobile-web-app-title" content="El meu hort">
 <title>El meu hort</title>
 <style>
-:root{--bg:#f6f4ec;--card:#fff;--tx:#23301f;--mu:#6b7565;--ac:#3f7d3a;--bd:#d9d5c4;--soil:#d9c3a0;--grow:#a8d5a0;--rdy:#f2c14e}
-@media(prefers-color-scheme:dark){:root{--bg:#1a1f18;--card:#262d23;--tx:#e8eee2;--mu:#9aa593;--ac:#7dbb74;--bd:#3a4336;--soil:#5a4a32;--grow:#3b6b36;--rdy:#9a7a1e}}
-*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,sans-serif;padding:env(safe-area-inset-top,0) 0 80px}
-h1{font-size:20px;margin:0;padding:12px 14px}
+:root{--bg:#f4ecdc;--card:#fbf6ea;--tx:#3a2c20;--mu:#7b6a57;--ac:#2f4a33;--on:#f4ecdc;--ol:#6b7a3a;--te:#b5573a;--bd:#dccfb4;--soil:#d8c3a0;--grow:#b9c27f;--rdy:#e3a46f;--er:#a8472e;--v2b:#dde4c2;--v2c:#2f4a33;--v1b:#eaeed4;--v1c:#4a5a28;--vxb:#efd5c8;--vxc:#7a2f1b;--vwb:#e6dec3;--vwc:#5a4a2a;--ser:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
+@media(prefers-color-scheme:dark){:root{--bg:#1e1a14;--card:#27221a;--tx:#eee2cc;--mu:#a99b83;--ac:#9dc2a4;--on:#1e1a14;--ol:#a8b567;--te:#d98462;--bd:#3d3528;--soil:#5c4a33;--grow:#56633a;--rdy:#9c6a3a;--er:#e08a6c;--v2b:#34402c;--v2c:#cfe3c4;--v1b:#2e3524;--v1c:#c9d6a2;--vxb:#4a2c22;--vxc:#f0c2ae;--vwb:#3b3425;--vwc:#e6d6a8}}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;padding:env(safe-area-inset-top,0) 0 88px}
+header{display:flex;align-items:center;gap:10px;padding:14px 16px 12px;border-bottom:1px solid var(--bd);margin-bottom:14px}
+h1{font:600 24px/1 var(--ser);letter-spacing:.2px;margin:0}
+.ic{display:inline-block;vertical-align:-4px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.iu{stroke:currentColor;fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
 nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0);z-index:5}
-nav button{flex:1;border:0;background:none;color:var(--mu);padding:12px 0;font-size:12px}nav button.on{color:var(--ac);font-weight:700}
-main{padding:0 12px;max-width:640px;margin:0 auto}.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px}
-.b,select,input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
-.b{cursor:pointer}.p{background:var(--ac);color:#fff;border-color:var(--ac)}.d{color:#c0392b}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0}.g1{flex:1;min-width:0}
-svg{width:100%;height:auto;background:var(--card);border:1px solid var(--bd);border-radius:12px;touch-action:none;display:block}
-.mu{color:var(--mu);font-size:14px}.hist{font-size:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);padding:4px 0}
-.hist button{border:0;background:none;color:var(--mu)}label{font-size:13px;color:var(--mu)}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;border-top:2px solid transparent;background:none;color:var(--mu);padding:9px 0 8px;font:inherit;font-size:11px;letter-spacing:.3px}
+nav button.on{color:var(--ac);border-top-color:var(--te)}nav .ic{stroke-width:1.6}
+main{padding:0 14px;max-width:640px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:14px}
+.card>b,.cr b{font-family:var(--ser);font-weight:600;font-size:17px}
+.b,select,input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 11px}
+.b{cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:transparent}
+.p{background:var(--ac);color:var(--on);border-color:var(--ac)}.d{color:var(--er)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:7px 0}.g1{flex:1;min-width:0}
+#sv{width:100%;height:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;touch-action:none;display:block}
+.mu{color:var(--mu);font-size:14px}
+.hist{font-size:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed var(--bd);padding:5px 0}
+.hist button{border:0;background:none;color:var(--mu);padding:2px 4px}
+label{font-size:13px;color:var(--mu)}
 .tag{display:inline-block;border-radius:99px;padding:2px 10px;font-size:13px;background:var(--bg);border:1px solid var(--bd)}
-.cr{border:1px solid var(--bd);border-radius:10px;padding:8px 10px;margin:8px 0}
-.v{border-radius:10px;padding:8px 10px;margin:8px 0;font-weight:600}.v2{background:#bfe5b8;color:#14380f}.v1{background:#dff0d6;color:#1f4a17}.v0{background:var(--bg);border:1px solid var(--bd)}.v-1{background:#f6c9c4;color:#6b1a12}
-.vw{background:#cfe6f7;color:#0e3550}
+.cr{border:1px solid var(--bd);border-radius:10px;padding:9px 11px;margin:9px 0}
+.v{border-radius:8px;padding:8px 11px;margin:9px 0;font-weight:500;display:flex;align-items:center;gap:8px}
+.v2{background:var(--v2b);color:var(--v2c)}.v1{background:var(--v1b);color:var(--v1c)}.v0{background:transparent;border:1px solid var(--bd)}.v-1{background:var(--vxb);color:var(--vxc)}.vw{background:var(--vwb);color:var(--vwc)}
+.dt{font-weight:400;letter-spacing:1px}.d2{color:var(--ac)}.d1{color:var(--ol)}.d0{color:var(--mu)}.dx{color:var(--te)}
 .ph{width:96px;height:96px;border-radius:10px;background:var(--bg);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;flex:none}.ph img{width:100%;height:100%;object-fit:cover}
-@media(prefers-color-scheme:dark){.vw{background:#1f3a52;color:#cfe6f7}}
-.toast{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:99px;font-size:14px;z-index:9;max-width:90%;text-align:center}
+.toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);background:var(--ac);color:var(--on);padding:8px 16px;border-radius:99px;font-size:14px;z-index:9;max-width:90%;text-align:center}
 </style></head><body>
-<h1>🌱 El meu hort</h1>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-beds" viewBox="0 0 24 24"><path d="M3.2 5.2 L10.7 4.8 L10.9 10.3 L3.5 10.7 Z"/><path d="M13.2 4.8 L20.8 5.3 L20.5 10.4 L13.4 10.2 Z"/><path d="M3.4 13.3 L20.7 13 L21 19.2 L3.1 19.6 Z"/><path d="M7.1 8.8 V6.8 M7.1 7.5 C6.3 6.7 5.6 6.8 5.4 7.3 M7.1 7.1 C7.8 6.4 8.6 6.5 8.8 7"/><path d="M7 15.6 L7.1 17.4 M11.6 15.4 L11.7 17.6 M16.2 15.5 L16.3 17.3"/></symbol><symbol id="i-reg" viewBox="0 0 24 24"><path d="M4.8 9.8 L5.3 18 Q5.4 19 6.4 19 L14.7 18.9 Q15.6 18.9 15.6 18 L15.9 9.9 Q15.9 9.3 15.2 9.3 L5.5 9.4 Q4.8 9.4 4.8 9.8 Z"/><path d="M15.7 12.6 L20.4 8"/><path d="M19.3 6.6 L21.7 8.9"/><path d="M5 11.4 C2.4 11.2 2.3 15.8 5.2 15.6"/><path d="M7.7 9.3 C8.1 6 12.3 5.9 12.8 9.2"/><path d="M21.4 12.2 v1.3 M19.6 14 v1.2 M22 15.4 v1"/></symbol><symbol id="i-trac" viewBox="0 0 24 24"><path d="M7 11.2 Q6.6 11.5 6.7 12.2 L7 19.2 Q7.1 20.1 8 20.1 L12.3 20 Q13.1 20 13.2 19.2 L13.4 12.2 Q13.4 11.3 12.6 11.2 Z"/><path d="M8.6 11.2 V8.8 M12 11.2 V8.8"/><path d="M8.5 8.8 L8.6 6.1 H14.4 L16.5 7.2 V8.8 H8.5"/><path d="M13.3 10 Q14.9 10.1 14.7 11.8"/><path d="M18.7 6.6 h1.4 M18.9 8.7 h2.1 M18.6 10.7 h1.5"/></symbol><symbol id="i-pluja" viewBox="0 0 24 24"><path d="M7.2 15.2 C4.5 15.3 3.7 12.3 5.5 11 C5.3 8.1 9.1 6.6 11.1 9 C12.7 7.4 16.3 8.3 16.5 11.3 C19.6 11 20.6 15.1 17.3 15.3 Z"/><path d="M8 18 L7.3 20.1 M12.1 17.8 L11.3 20.3 M16 18 L15.4 20.1"/></symbol><symbol id="i-collita" viewBox="0 0 24 24"><path d="M4.2 11.3 L19.8 11.1 L18.4 19.3 Q18.3 20.1 17.5 20.1 L6.6 20.2 Q5.8 20.2 5.7 19.4 Z"/><path d="M5 14.5 L19 14.3 M5.6 17.3 L18.4 17.2 M9.1 11.4 L9.6 20 M15 11.3 L14.5 20"/><path d="M8.6 11 Q8.4 8.3 10.8 8.4 Q12.6 8.5 12.6 11 M12.4 11 Q12.4 7.9 14.8 8.1 Q16.4 8.3 16.2 11"/></symbol><symbol id="i-cultius" viewBox="0 0 24 24"><path d="M6.3 3.6 L17.6 3.4 L18 20.2 L6 20.4 Z"/><path d="M6.2 7.4 L17.8 7.2"/><path d="M12 18.2 V12.8 M12 14.2 C10 14 9 12.4 9.4 11 C11 11 12.1 12.2 12 14.2 M12 13.2 C12 11.6 13.2 10.6 14.8 10.7 C14.9 12.2 13.8 13.2 12 13.2"/></symbol><symbol id="i-ajust" viewBox="0 0 24 24"><path d="M4 20.2 L9.4 14.6"/><path d="M9 15 C7.6 12.4 8.4 9.6 11.4 7.6 C14.2 5.8 18.6 5 19.8 5.6 C20 8.4 18.6 12.6 15.8 14.6 C13.6 16 11 16.4 9 15 Z"/><path d="M12 12.6 L17.4 7.2"/></symbol><symbol id="i-gota" viewBox="0 0 24 24"><path d="M12 3.6 C13.7 6.7 17.4 10.2 17.4 14 A5.4 5.4 0 0 1 6.6 14.1 C6.6 10.2 10.4 6.7 12 3.6 Z"/><path d="M9.5 14.6 A2.8 2.8 0 0 0 11.7 17.2"/></symbol><symbol id="i-gotes" viewBox="0 0 24 24"><path d="M7 9.2 C8.1 11 9.6 12.4 9.6 14 A2.6 2.6 0 0 1 4.4 14 C4.4 12.4 5.9 11 7 9.2 Z"/><path d="M17 9.2 C18.1 11 19.6 12.4 19.6 14 A2.6 2.6 0 0 1 14.4 14 C14.4 12.4 15.9 11 17 9.2 Z"/><path d="M12 14.4 C13.1 16.2 14.6 17.6 14.6 19.2 A2.6 2.6 0 0 1 9.4 19.2 C9.4 17.6 10.9 16.2 12 14.4 Z"/></symbol><symbol id="i-sol" viewBox="0 0 24 24"><path d="M12.1 8.3 A3.8 3.9 0 1 0 12 8.3 Z"/><path d="M12 3.4 V5.2 M12 19 V20.6 M3.6 12.2 H5.4 M18.6 12.1 H20.5 M6 6.3 L7.3 7.6 M16.8 16.7 L18 18 M18 6.2 L16.7 7.5 M7.2 16.8 L6 18"/></symbol><symbol id="i-llavor" viewBox="0 0 24 24"><path d="M12 3.8 C16.8 8 17.4 14.6 12 20.2 C6.6 14.6 7.2 8 12 3.8 Z"/><path d="M12 8.2 C12.7 11 12.4 14.2 12 17"/></symbol><symbol id="i-av" viewBox="0 0 24 24"><path d="M12 4 L21 19.6 L3.2 19.4 Z"/><path d="M12 10 V14.2 M12 16.9 v.1"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><path d="M12 3.6 A8.4 8.4 0 1 0 12.1 3.6 Z"/><path d="M12 11 V16 M12 7.9 v.1"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6.4 6.2 L17.6 17.8 M17.5 6.3 L6.5 17.7"/></symbol><symbol id="i-bin" viewBox="0 0 24 24"><path d="M5.6 7.2 H18.4 M9.4 7 V5 H14.6 V7 M7 7.2 L7.8 19.6 H16.2 L17 7.2 M10.4 10.4 V16.6 M13.6 10.4 V16.6"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.4 V18.6 M5.4 12.1 H18.6"/></symbol><symbol id="i-rot" viewBox="0 0 24 24"><path d="M19 12 A7 7 0 0 1 6.4 16.2 M5 12 A7 7 0 0 1 17.6 7.8 M17.8 4.6 V8 H14.4 M6.2 19.4 V16 H9.6"/></symbol><symbol id="i-logo" viewBox="0 0 32 32"><path d="M16 3.4 C21 7.6 21.4 12.8 16 17.4 C10.6 12.8 11 7.6 16 3.4 Z" style="fill:var(--ol);stroke:var(--ac);stroke-width:1.4;stroke-linejoin:round"/><path d="M16 7.6 C16.8 10.4 16.5 13.2 16 15.4" style="stroke:var(--bg);stroke-width:1.1;fill:none;stroke-linecap:round"/><path d="M3.6 21.8 Q9.6 20.4 16 21.6 T28.4 21.2" style="stroke:var(--te);stroke-width:2;fill:none;stroke-linecap:round"/><path d="M6.2 25.6 Q12 24.6 17 25.5 T26 25.1" style="stroke:var(--te);stroke-width:2;fill:none;stroke-linecap:round"/><path d="M9.4 29.2 Q14 28.4 18 29 T23 28.8" style="stroke:var(--te);stroke-width:2;fill:none;stroke-linecap:round"/></symbol></defs></svg>
+<header><svg class="ic" width="36" height="36" aria-hidden="true"><use href="#i-logo"/></svg><h1>El meu hort</h1></header>
 <main id="m"></main>
-<nav><button data-t="map">🗺️ Croquis</button><button data-t="rain">🌧️ Pluja</button><button data-t="har">🧺 Collites</button><button data-t="cat">📖 Cultius</button><button data-t="cfg">⚙️ Ajustos</button></nav>
+<nav><button data-t="map"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-beds"/></svg><span>Bancals</span></button><button data-t="rain"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-pluja"/></svg><span>Pluja</span></button><button data-t="har"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-collita"/></svg><span>Collites</span></button><button data-t="cat"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-cultius"/></svg><span>Cultius</span></button><button data-t="cfg"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-ajust"/></svg><span>Ajustos</span></button></nav>
 <script>
 const F={S:"Solanàcies",C:"Cucurbitàcies",L:"Lleguminoses",B:"Crucíferes",U:"Umbel·líferes",A:"Al·liàcies",Q:"Amarantàcies",K:"Asteràcies",M:"Lamiàcies",R:"Rosàcies"};
 const RN={"Carbassó":"Carabassó","Carbassa":"Carabassa","Espinacs":"Espinac","Mongeta":"Mongeta tendra"};
@@ -173,8 +184,9 @@ const PAIRS=[["Tomàquet","Alfàbrega",2],["Pebrot","Alfàbrega",2],["Albergíni
 const N=n=>RN[n]||n,CP={};PAIRS.forEach(([a,b,v])=>{CP[N(a)+"|"+N(b)]=v;CP[N(b)+"|"+N(a)]=v});
 const BASE={"Col arrissada":"Col","Col de Brussel·les":"Col","Col de cabdell":"Col","Col gallega":"Col","Col llombarda":"Col","Col milanesa":"Col","Col verda":"Col","Col xinesa":"Col","Coliflor":"Col","Col-rave":"Col","Romanesco":"Col","Bimi":"Bròquil","Bròquil xinès":"Bròquil","Brots de bròquil":"Bròquil","Calçot":"Ceba","Escalunya":"Ceba","Cebollí":"Ceba","Brots de ceba":"Ceba","All tendre":"All","All elefant":"All","Ravenet":"Rave","Daikon":"Rave","Brots de rave":"Rave","Fava tendra":"Fava","Tirabec":"Pèsol","Soja verda":"Mongeta tendra","Fisalis":"Tomàquet","Xirivia":"Pastanaga","Flor de carabassa":"Carabassa","Flor de carabassó":"Carabassó","Chayote":"Cogombre","Luffa":"Cogombre","Meló amarg":"Cogombre","Espinac de Nova Zelanda":"Espinac","Api-rave":"Api"};
 const FR=[["S","B",-1],["A","L",-1],["A","A",-1],["U","A",1],["U","S",1],["K","B",1],["K","U",1],["K","A",1],["K","C",1],["K","L",1],["L","B",1],["L","C",1],["A","B",1],["A","Q",1],["A","S",1],["A","R",1],["A","C",1],["M","S",1],["B","R",-1]].map(([x,y,v])=>[F[x],F[y],v]);
-const RT={2:["🟢🟢","Molt bona"],1:["🟢","Bona"],0:["⚪","Neutra"],"-1":["🔴","Convé evitar"]};
-const LV=["Gens","Poca","Molta"],LI=["☀️","🌦️","🌧️"];
+const ic=(n,z=18)=>`<svg class="ic" width="${z}" height="${z}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const RT={2:[`<b class="dt d2">●●</b>`,"Molt bona"],1:[`<b class="dt d1">●</b>`,"Bona"],0:[`<b class="dt d0">○</b>`,"Neutra"],"-1":[`<b class="dt dx">✕</b>`,"Convé evitar"]};
+const LV=["Gens","Poca","Molta"],LI=[ic("sol",16),ic("gota",16),ic("gotes",16)];
 let S={beds:[],rain:[],mm:{},loc:null,wx:null,garden:null},sel=null,tab="map",tm=null,wxMsg="",geo=[];
 const $=s=>document.querySelector(s),m=$("#m");
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -233,14 +245,14 @@ function needsWater(b){
  return n>lim&&mm<5&&!near.some(x=>x.mm>5)?{n,mm,hot,ref:w?"l’últim reg":"la sembra"}:null}
 const ret=b=>(b.log||[]).map((x,i)=>[x,i]).filter(p=>p[0].t=="h").sort((p,q)=>p[0].d<q[0].d?1:p[0].d>q[0].d?-1:q[1]-p[1]).map(p=>p[0]);
 function rotWarn(b,c){const f=FAM[c];if(!f)return"";const r=ret(b).slice(0,3).find(x=>FAM[x.n]==f);
- return r?`<div class="v v-1">🔄 Mateixa família (${f}) que ${esc(r.n)}, retirat el ${fmt(r.d)}: convé rotar</div>`:""}
+ return r?`<div class="v v-1">${ic("rot",16)} Mateixa família (${f}) que ${esc(r.n)}, retirat el ${fmt(r.d)}: convé rotar</div>`:""}
 function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}
 
 /* ---- Vistes ---- */
 function render(){
  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x.dataset.t==tab));
  ({map:rMap,rain:rRain,har:rHar,cat:rCat,cfg:rCfg})[tab]();if(tab!="cat"||!copen)window.scrollTo(0,0)}
-function rainLine(){const r=lastRain();return r?`🌧️ Última pluja: ${LV[r.lv].toLowerCase()}, ${ago(r.d)}`:"🌧️ Cap pluja registrada"}
+function rainLine(){const r=lastRain();return r?`${ic("pluja",16)} Última pluja: ${LV[r.lv].toLowerCase()}, ${ago(r.d)}`:`${ic("pluja",16)} Cap pluja registrada`}
 function iconLayout(l,W,H){const aw=W-6,ah=H-4;if(!l.length||aw<8||ah<8)return{p:[],fs:8,hid:l.length};
  let n=l.length,best;
  for(;n>=1;n--){best=null;for(let c=1;c<=n;c++){const r=Math.ceil(n/c),sz=Math.min(aw/c,ah/r);if(!best||sz>best.sz)best={c,r,sz}}if(best.sz>=11||n==1)break}
@@ -251,74 +263,77 @@ function rMap(){
  const b=S.beds.find(x=>x.id==sel),g=G(),s=SC(),H=g.h*s,st=g.w>40?5:1,q=s*st;
  let svg=`<svg id="sv" viewBox="0 0 360 ${H}"><defs><pattern id="g" width="${q}" height="${q}" patternUnits="userSpaceOnUse"><path d="M${q} 0H0V${q}" fill="none" stroke="var(--bd)" stroke-width=".6"/></pattern></defs><rect width="360" height="${H}" fill="url(#g)"/>`;
  for(const x of S.beds){const stt=status(x),f=stt=="ready"?"var(--rdy)":stt=="grow"?"var(--grow)":"var(--soil)",w=last(x,"w");
-  const bad=verdict(pairs((x.crops||[]).map(c=>c.crop)))==-1,X=x.x*s,Y=x.y*s,W=x.w*s,Hh=x.h*s;
-  const pre=(bad?"⚠️ ":"")+(needsWater(x)?"💧! ":""),lab=Hh>=26;
-  const ic=[...new Set((x.crops||[]).map(c=>CROPS[c.crop][0]))],L=iconLayout(ic,W,Hh-(lab?12:0));
-  let t=pre+x.name+(w?" · 💧"+Math.max(0,diff(w,today()))+"d":"")+(L.hid?" +"+L.hid:"");const mx=Math.max(3,Math.floor((W-4)/5));if(t.length>mx)t=t.slice(0,mx-1)+"…";
-  svg+=`<g data-id="${x.id}" clip-path="url(#c${x.id})" style="cursor:grab"><clipPath id="c${x.id}"><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="4"/></clipPath><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="4" fill="${f}" stroke="${bad?"#c0392b":x.id==sel?"var(--ac)":"var(--mu)"}" stroke-width="${bad||x.id==sel?3:1}"/>`
+  const bad=verdict(pairs((x.crops||[]).map(c=>c.crop)))==-1,nw=needsWater(x),X=x.x*s,Y=x.y*s,W=x.w*s,Hh=x.h*s;
+  const ind=[nw?"gota":"",bad?"av":""].filter(Boolean),lab=Hh>=26,IS=11;
+  const icn=[...new Set((x.crops||[]).map(c=>CROPS[c.crop][0]))],L=iconLayout(icn,W,Hh-(lab?13:0));
+  let t=x.name+(w?" · reg "+Math.max(0,diff(w,today()))+"d":"")+(L.hid?" +"+L.hid:"");const mx=Math.max(3,Math.floor((W-6-ind.length*(IS+1))/5));if(t.length>mx)t=t.slice(0,mx-1)+"…";
+  const bx=X+3,by=lab?Y+Hh-13:Y+2;
+  svg+=`<g data-id="${x.id}" clip-path="url(#c${x.id})" style="cursor:grab"><clipPath id="c${x.id}"><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="3"/></clipPath><rect x="${X}" y="${Y}" width="${W}" height="${Hh}" rx="3" fill="${f}" stroke="${bad?"var(--er)":x.id==sel?"var(--ac)":"var(--mu)"}" stroke-width="${bad||x.id==sel?2.4:.8}"/>`
+  +(!icn.length?[.25,.5,.75].map(r=>`<path d="M${X+5} ${Y+Hh*r}H${X+W-5}" stroke="var(--mu)" stroke-width=".6" stroke-dasharray="2 3" opacity=".5"/>`).join(""):"")
   +L.p.map(q=>`<text x="${X+q[0]}" y="${Y+q[1]}" text-anchor="middle" dominant-baseline="central" font-size="${L.fs}">${q[2]}</text>`).join("")
-  +(lab?`<text x="${X+W/2}" y="${Y+Hh-6}" text-anchor="middle" font-size="9" fill="var(--tx)">${esc(t)}</text>`:(pre?`<text x="${X+3}" y="${Y+9}" font-size="8">${pre}</text>`:""))+"</g>"}
+  +ind.map((n,i)=>`<use class="iu" href="#i-${n}" x="${bx+i*(IS+1)}" y="${by}" width="${IS}" height="${IS}" style="color:${n=="av"?"var(--te)":"var(--ac)"}"/>`).join("")
+  +(lab?`<text x="${bx+ind.length*(IS+1)}" y="${Y+Hh-4.5}" font-size="9" fill="var(--tx)">${esc(t)}</text>`:"")+"</g>"}
  svg+="</svg>";
- m.innerHTML=svg+`<div class="row"><button class="b p" id="add">＋ Afegeix bancal</button><button class="b" id="wall">💧 Regar tot</button></div><div class="mu">Hort: ${nm(g.w)} × ${nm(g.h)} m · <a href="#" id="gl" style="color:var(--ac)">canvia</a> · Arrossega per moure; toca per editar. Quadrícula: ${st} m.</div><div class="mu">${rainLine()}</div>`+(b?sheet(b):"");
+ m.innerHTML=svg+`<div class="row"><button class="b p" id="add">${ic("plus",16)} Afegeix bancal</button><button class="b" id="wall">${ic("gota",16)} Regar tot</button></div><div class="mu">Hort: ${nm(g.w)} × ${nm(g.h)} m · <a href="#" id="gl" style="color:var(--ac)">canvia</a> · Arrossega per moure; toca per editar. Quadrícula: ${st} m.</div><div class="mu">${rainLine()}</div>`+(b?sheet(b):"");
  wireMap()}
 function sheet(b){
  b.crops=b.crops||[];const lg=(b.log||[]).slice().sort((p,q)=>p.d<q.d?1:-1),t=today();
  const rows=b.crops.map((c,i)=>{const s=span(c),e=CROPS[c.crop];
-  const msg=s?(t<s[0]?"d’aquí "+diff(t,s[0])+" dies":t<=s[1]?"🎉 ja es pot collir":"collita passada"):"";
-  return `<div class="cr"><div class="row"><b class="g1">${e[0]} ${esc(c.crop)}</b><button class="b" data-ci="${esc(c.crop)}" aria-label="Fitxa del cultiu">ℹ️</button><button class="b d" data-cd="${i}">✕</button></div>`+
+  const msg=s?(t<s[0]?"d’aquí "+diff(t,s[0])+" dies":t<=s[1]?"ja es pot collir":"collita passada"):"";
+  return `<div class="cr"><div class="row"><b class="g1">${e[0]} ${esc(c.crop)}</b><button class="b" data-ci="${esc(c.crop)}" aria-label="Fitxa del cultiu">${ic("info",16)}</button><button class="b d" data-cd="${i}">${ic("x",14)}</button></div>`+
   (c.sown?`<div class="row"><label>Sembrat el</label><input type="date" data-cs="${i}" value="${c.sown}"><span class="mu">${ago(c.sown)}</span></div>`+
    (c.crop=="Altre"?`<div class="row"><label>Dies fins a collir</label><input type="number" data-cy="${i}" value="${c.days||""}" style="width:90px"></div>`:"")+
-   (s?`<div>🧺 ${fmt(s[0])} – ${fmt(s[1])} <span class="mu">· ${msg}</span></div>`:"")
-  :`<div class="row"><span class="tag">📝 Vull plantar-ho</span><button class="b p" data-cp="${i}">Ja ho he plantat</button></div>`)+`</div>`}).join("");
+   (s?`<div>${ic("collita",16)} ${fmt(s[0])} – ${fmt(s[1])} <span class="mu">· ${msg}</span></div>`:"")
+  :`<div class="row"><span class="tag">Vull plantar-ho</span><button class="b p" data-cp="${i}">Ja ho he plantat</button></div>`)+`</div>`}).join("");
  const w=last(b,"w"),ps=pairs(b.crops.map(c=>c.crop)),nw=needsWater(b),rt=ret(b);
- return `<div class="card" style="margin-top:12px"><div class="row"><input id="nm" class="g1" value="${esc(b.name)}" aria-label="Nom"><button class="b d" id="del">🗑️</button></div>
- ${nw?`<div class="v vw">💧! Convé regar: ${nw.n} dies des de ${nw.ref}, només ${nm(nw.mm)} mm de pluja${nw.hot?" i calor (>25 °C)":""}</div>`:""}
+ return `<div class="card" style="margin-top:12px"><div class="row"><input id="nm" class="g1" value="${esc(b.name)}" aria-label="Nom"><button class="b d" id="del">${ic("bin",16)}</button></div>
+ ${nw?`<div class="v vw">${ic("gota",16)} Convé regar: ${nw.n} dies des de ${nw.ref}, només ${nm(nw.mm)} mm de pluja${nw.hot?" i calor (>25 °C)":""}</div>`:""}
  <b>Cultius del bancal</b>${rows||'<div class="mu">Encara no hi ha cap cultiu.</div>'}
  <div class="row"><select id="cr" class="g1"><option value="">Afegeix un cultiu…</option>${CN.map(k=>`<option>${esc(k)}</option>`).join("")}</select></div>
  <div id="pv"></div>
- <div class="row" id="addrow" hidden><input type="date" id="sd" value="${t}"><button class="b p" data-ad="1">🌱 Plantat</button><button class="b" data-ad="0">📝 Vull plantar</button></div>
+ <div class="row" id="addrow" hidden><input type="date" id="sd" value="${t}"><button class="b p" data-ad="1">${ic("llavor",16)} Plantat</button><button class="b" data-ad="0">Vull plantar</button></div>
  ${ps.length?`<b>Simbiosi</b>${compat(ps)}`:""}
  <hr style="border:0;border-top:1px solid var(--bd)">
  <div class="row"><label>Amplada (m)</label><input type="number" id="bw" step="0.1" min="0.2" value="${b.w}" style="width:80px"><label>Llargada (m)</label><input type="number" id="bh" step="0.1" min="0.2" value="${b.h}" style="width:80px"><span class="mu">${nm(b.w*b.h)} m²</span></div>
- <div class="row"><input type="date" id="ld" value="${t}"><button class="b p" data-lg="w">💧 Regat</button></div>
- <div class="row"><input id="tn" class="g1" placeholder="Tractament (p. ex. sofre, oli de neem)"><button class="b p" data-lg="t">🧪 Tractat</button></div>
+ <div class="row"><input type="date" id="ld" value="${t}"><button class="b p" data-lg="w">${ic("reg",18)} Regat</button></div>
+ <div class="row"><input id="tn" class="g1" placeholder="Tractament (p. ex. sofre, oli de neem)"><button class="b p" data-lg="t">${ic("trac",18)} Tractat</button></div>
  <div class="mu">Últim reg: ${w?ago(w)+" · pluja des d’aleshores: "+nm(mmSince(w))+" mm":"—"}<br>Últim tractament: ${last(b,"t")?ago(last(b,"t")):"—"}</div>
- ${rt.length?`<div class="mu" style="margin-top:6px">🔄 Anteriors: ${rt.slice(0,4).map(x=>(CROPS[x.n]?CROPS[x.n][0]+" ":"")+esc(x.n)+(FAM[x.n]?" ("+FAM[x.n]+")":"")).join(" · ")}<br>Evita repetir: ${[...new Set(rt.slice(0,2).map(x=>FAM[x.n]).filter(Boolean))].join(", ")||"—"}</div>`:""}
- ${lg.map(x=>`<div class="hist"><span>${x.t=="w"?"💧 Reg":x.t=="h"?"🧺 Retirat: "+esc(x.n):"🧪 "+esc(x.n||"Tractament")} · ${fmt(x.d)}</span><button data-rm="${x.k}">✕</button></div>`).join("")}</div>`}
+ ${rt.length?`<div class="mu" style="margin-top:6px">${ic("rot",16)} Anteriors: ${rt.slice(0,4).map(x=>(CROPS[x.n]?CROPS[x.n][0]+" ":"")+esc(x.n)+(FAM[x.n]?" ("+FAM[x.n]+")":"")).join(" · ")}<br>Evita repetir: ${[...new Set(rt.slice(0,2).map(x=>FAM[x.n]).filter(Boolean))].join(", ")||"—"}</div>`:""}
+ ${lg.map(x=>`<div class="hist"><span>${x.t=="w"?ic("reg",16)+" Reg":x.t=="h"?ic("collita",16)+" Retirat: "+esc(x.n):ic("trac",16)+" "+esc(x.n||"Tractament")} · ${fmt(x.d)}</span><button data-rm="${x.k}">${ic("x",14)}</button></div>`).join("")}</div>`}
 function rRain(){
  const t=today(),r=lastRain(),fc=(S.wx?.days||[]).filter(x=>x.d>t);
  const past=[];for(let i=0;i<14;i++){const d=add(t,-i),x=dayRain(d);past.push([d,x])}
  const man=S.rain.slice().sort((a,b)=>a.d<b.d?1:-1);
  let since="";if(r){const n=diff(r.d,t);since=n>0?` · sense pluja des del ${fmt(r.d)} (${n} dies)`:""}
- m.innerHTML=`<div class="card"><div class="row"><b class="g1">${S.loc?"📍 "+esc(S.loc.name):"📍 Sense ubicació"}</b><button class="b p" id="wx">⟳ Actualitza</button></div>
+ m.innerHTML=`<div class="card"><div class="row"><b class="g1">${S.loc?esc(S.loc.name):"Sense ubicació"}</b><button class="b p" id="wx">Actualitza</button></div>
  ${S.loc?"":'<div class="mu">Tria la teva ubicació a Ajustos per carregar la pluja automàticament.</div>'}
  <div>${rainLine()}<span class="mu">${since}</span></div>
  ${wxMsg?`<div class="mu">${wxMsg}</div>`:S.wx?`<div class="mu">Dades Open-Meteo actualitzades a les ${new Date(S.wx.t).toTimeString().slice(0,5)}</div>`:""}</div>
  ${fc.length?`<div class="card"><b>Previsió</b>${fc.map(x=>`<div class="hist"><span>${LI[lvOf(x.mm)]} ${fmt(x.d)}</span><span>${nm(x.mm)} mm · ${x.pp??"–"}% · ${Math.round(x.tn)}–${Math.round(x.tx)} °C</span></div>`).join("")}</div>`:""}
  <div class="card"><b>Últims 14 dies</b>${past.map(([d,x])=>`<div class="hist"><span>${x?LI[x.lv]:"·"} ${fmt(d)}</span><span>${x?LV[x.lv]+(x.man?" (manual)":" · "+nm(x.mm)+" mm"):"sense dades"}</span></div>`).join("")}</div>
  <div class="card"><b>Anota-ho a mà</b><div class="mu">Si has mesurat la pluja tu mateix, preval sobre la dada automàtica.</div>
- <div class="row"><input type="date" id="rd" value="${t}"><button class="b" data-rl="0">☀️ Gens</button><button class="b" data-rl="1">🌦️ Poca</button><button class="b" data-rl="2">🌧️ Molta</button></div>
- ${man.map(x=>`<div class="hist"><span>${LI[x.lv]} ${LV[x.lv]} · ${fmt(x.d)}</span><button data-rr="${x.k}">✕</button></div>`).join("")}</div>`;
+ <div class="row"><input type="date" id="rd" value="${t}"><button class="b" data-rl="0">${ic("sol",16)} Gens</button><button class="b" data-rl="1">${ic("gota",16)} Poca</button><button class="b" data-rl="2">${ic("gotes",16)} Molta</button></div>
+ ${man.map(x=>`<div class="hist"><span>${LI[x.lv]} ${LV[x.lv]} · ${fmt(x.d)}</span><button data-rr="${x.k}">${ic("x",14)}</button></div>`).join("")}</div>`;
  $("#wx").onclick=fetchWx;
  m.querySelectorAll("[data-rl]").forEach(e=>e.onclick=()=>{const d=$("#rd").value||t;S.rain=S.rain.filter(x=>x.d!=d);S.rain.push({k:uid(),d,lv:+e.dataset.rl});save();render()});
  m.querySelectorAll("[data-rr]").forEach(e=>e.onclick=()=>{S.rain=S.rain.filter(x=>x.k!=e.dataset.rr);save();render()})}
 function rHar(){
  const l=[];S.beds.forEach(b=>(b.crops||[]).forEach(c=>{const s=span(c);if(s)l.push({b,c,s})}));l.sort((a,c)=>a.s[0]<c.s[0]?-1:1);const t=today();
- m.innerHTML=l.length?l.map(({b,c,s})=>{const msg=t<s[0]?"d’aquí "+diff(t,s[0])+" dies":t<=s[1]?"🎉 ja es pot collir":"passada fa "+diff(s[1],t)+" dies";
-  return `<div class="card"><b>${CROPS[c.crop][0]} ${esc(c.crop)}</b> · ${esc(b.name)}<div class="mu">Sembrat ${fmt(c.sown)}</div><div>🧺 ${fmt(s[0])} – ${fmt(s[1])}</div><div class="mu">${msg}</div></div>`}).join("")
+ m.innerHTML=l.length?l.map(({b,c,s})=>{const msg=t<s[0]?"d’aquí "+diff(t,s[0])+" dies":t<=s[1]?"ja es pot collir":"passada fa "+diff(s[1],t)+" dies";
+  return `<div class="card"><b>${CROPS[c.crop][0]} ${esc(c.crop)}</b> · ${esc(b.name)}<div class="mu">Sembrat ${fmt(c.sown)}</div><div>${ic("collita",16)} ${fmt(s[0])} – ${fmt(s[1])}</div><div class="mu">${msg}</div></div>`}).join("")
   :'<div class="card mu">Planta alguna cosa en un bancal i aquí veuràs quan collir-ho.</div>'}
 function rCfg(){
- m.innerHTML=`<div class="card"><b>📐 Dimensions de l’hort</b>
+ m.innerHTML=`<div class="card"><b>Dimensions de l’hort</b>
  <div class="row"><label>Amplada (m)</label><input type="number" id="gw" step="0.5" min="1" max="200" value="${G().w}" style="width:80px"><label>Llargada (m)</label><input type="number" id="gh" step="0.5" min="1" max="200" value="${G().h}" style="width:80px"></div>
  <div class="mu">Els bancals es mesuren en metres dins d’aquest espai. Si l’encongeixes, els bancals que hi sobrin s’ajusten.</div></div>
- <div class="card"><b>📍 Ubicació de l’hort</b><div class="mu">${S.loc?esc(S.loc.name)+" ("+S.loc.lat.toFixed(3)+", "+S.loc.lon.toFixed(3)+")":"Cap ubicació triada"}</div>
+ <div class="card"><b>Ubicació de l’hort</b><div class="mu">${S.loc?esc(S.loc.name)+" ("+S.loc.lat.toFixed(3)+", "+S.loc.lon.toFixed(3)+")":"Cap ubicació triada"}</div>
  <div class="row"><input id="q" class="g1" placeholder="Nom del poble"><button class="b p" id="qs">Cerca</button></div>
- <div class="row"><button class="b" id="gps">📡 Usa la ubicació del mòbil</button></div>
+ <div class="row"><button class="b" id="gps">Usa la ubicació del mòbil</button></div>
  <div id="gr">${geo.map((x,i)=>`<div class="hist"><span>${esc(x.name)}${x.admin1?", "+esc(x.admin1):""} (${esc(x.country||"")})</span><button class="b" data-gi="${i}">Tria</button></div>`).join("")}</div>
  <div class="mu">La pluja ve d’Open-Meteo (gratuït, sense clau d’API).</div></div>
- <div class="card"><b>📷 Fotos dels cultius</b><div class="mu">Les fotos vénen de la Viquipèdia. Descarrega-les un cop amb connexió i després es veuran també sense internet.</div><div class="row"><button class="b" id="ph">Descarrega les fotos</button></div><div class="mu" id="pg"></div></div>
- <div class="card"><b>💾 Còpia de seguretat</b><div class="mu">Les dades es guarden només en aquest navegador. Fes-ne una còpia de tant en tant.</div>
- <div class="row"><button class="b" id="ex">⬇️ Exportar dades</button><button class="b" id="im">⬆️ Importar dades</button><input type="file" id="fi" accept=".json" hidden></div></div>`;
+ <div class="card"><b>Fotos dels cultius</b><div class="mu">Les fotos vénen de la Viquipèdia. Descarrega-les un cop amb connexió i després es veuran també sense internet.</div><div class="row"><button class="b" id="ph">Descarrega les fotos</button></div><div class="mu" id="pg"></div></div>
+ <div class="card"><b>Còpia de seguretat</b><div class="mu">Les dades es guarden només en aquest navegador. Fes-ne una còpia de tant en tant.</div>
+ <div class="row"><button class="b" id="ex">Exportar dades</button><button class="b" id="im">Importar dades</button><input type="file" id="fi" accept=".json" hidden></div></div>`;
  const gd=(k,id)=>$(id).onchange=e=>{const v=Math.max(1,Math.min(200,+e.target.value||G()[k]));G()[k]=v;
   S.beds.forEach(b=>{b.w=Math.min(b.w,G().w);b.h=Math.min(b.h,G().h);b.x=sn(Math.max(0,Math.min(b.x,G().w-b.w)));b.y=sn(Math.max(0,Math.min(b.y,G().h-b.h)))});save();render()};
  gd("w","#gw");gd("h","#gh");
@@ -359,7 +374,7 @@ function fillPh(root){root.querySelectorAll("[data-ph]").forEach(e=>{const n=e.d
  if(i&&i.img){phImg(e,i);return}if(i&&i.no)return;
  getInfo(n).then(x=>{if(x&&x.img&&e.isConnected)phImg(e,x)})})}
 function cropCard(n){const c=CROPS[n],i=INFO[n]||{};
- return `<div class="cr" style="cursor:pointer"><div class="row" style="flex-wrap:nowrap"><div class="ph" data-ph="${esc(n)}" data-em="${c[0]}">${c[0]}</div><div class="g1"><b>${esc(n)}</b>${c[5]?`<div class="mu"><i>${esc(c[5])}</i></div>`:""}<div class="mu">${esc(c[3]||"")}</div><div class="mu">🧺 Collita: ${c[1]}–${c[2]} dies${c[1]>=365?" (cultiu de diversos anys)":""}</div></div></div><div>${esc(c[4])}</div>${i.url?`<div class="mu"><a href="${esc(i.url)}" target="_blank" rel="noopener" style="color:var(--ac)">Més informació a la Viquipèdia</a></div>`:""}</div>`}
+ return `<div class="cr" style="cursor:pointer"><div class="row" style="flex-wrap:nowrap"><div class="ph" data-ph="${esc(n)}" data-em="${c[0]}">${c[0]}</div><div class="g1"><b>${esc(n)}</b>${c[5]?`<div class="mu"><i>${esc(c[5])}</i></div>`:""}<div class="mu">${esc(c[3]||"")}</div><div class="mu">${ic("collita",16)} Collita: ${c[1]}–${c[2]} dies${c[1]>=365?" (cultiu de diversos anys)":""}</div></div></div><div>${esc(c[4])}</div>${i.url?`<div class="mu"><a href="${esc(i.url)}" target="_blank" rel="noopener" style="color:var(--ac)">Més informació a la Viquipèdia</a></div>`:""}</div>`}
 function rCat(){
  m.innerHTML=`<div class="row"><input id="cs" class="g1" type="search" placeholder="Cerca entre ${CN.length-1} cultius…" value="${esc(cq)}"></div><div id="cl"></div>`;
  const draw=()=>{const l=CN.filter(n=>n!="Altre"&&nz(n).includes(nz(cq))),cl=$("#cl");
@@ -378,7 +393,7 @@ function wireMap(){
  $("#wall").onclick=()=>{const l=S.beds.filter(b=>(b.crops||[]).some(c=>c.sown));
   if(!l.length){toast("Cap bancal amb cultius sembrats");return}
   if(!confirm("Regar "+l.length+(l.length==1?" bancal?":" bancals?")))return;
-  l.forEach(b=>(b.log=b.log||[]).push({k:uid(),t:"w",d:today()}));save();render();toast("💧 Regat en "+l.length+(l.length==1?" bancal":" bancals"))};
+  l.forEach(b=>(b.log=b.log||[]).push({k:uid(),t:"w",d:today()}));save();render();toast("Regat en "+l.length+(l.length==1?" bancal":" bancals"))};
  m.querySelectorAll("#sv g").forEach(e=>{e.onpointerdown=ev=>{const b=S.beds.find(x=>x.id==e.dataset.id),sv=$("#sv"),pt=sv.createSVGPoint();
   const at=v=>{pt.x=v.clientX;pt.y=v.clientY;return pt.matrixTransform(sv.getScreenCTM().inverse())};
   const p0=at(ev),ox=b.x,oy=b.y;let mv=false;e.setPointerCapture(ev.pointerId);
