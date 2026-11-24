@@ -12,6 +12,11 @@ App personal per al mòbil per gestionar l’hort: croquis dels bancals, cultius
 - **Pluja:** consulta automàtica de la pluja i la previsió (Open-Meteo), amb opció d’anotar-la a mà.
 - **Rotació de cultius:** guarda els cultius retirats i avisa si repeteixes família botànica.
 - **Catàleg de cultius:** foto, definició, nom científic, família i dies fins a la collita.
+- **Etapa de creixement (GDD):** calcula en quina etapa és cada cultiu a partir de la temperatura acumulada des de la sembra o el trasplantament.
+- **Agenda automàtica:** reg, adob i collita dels pròxims 14 dies segons el clima de la zona, amb exportació a calendari (.ics).
+- **Alertes:** calor extrema, gelada, pluja forta, risc d’espigolament i moment òptim de collita.
+- **Període ideal de plantació:** calendari anual per a cada cultiu, calculat per a la teva ubicació.
+- **Plagues i rotació:** tractament ecològic recomanat segons la plaga i la intensitat, i valoració de la rotació amb criteri regeneratiu.
 - **Còpia de seguretat:** exportació i importació de totes les dades en un fitxer JSON.
 
 ## Instal·lació al mòbil
@@ -34,5 +39,5 @@ Les dades es guarden **només al navegador del mòbil**. No hi ha servidor ni co
 
 ## Crèdits
 
-- Previsió i pluja: [Open-Meteo](https://open-meteo.com)
+- Previsió, pluja i clima històric: [Open-Meteo](https://open-meteo.com)
 - Fotos dels cultius: [Viquipèdia](https://ca.wikipedia.org)
