@@ -1,4 +1,4 @@
-# 🌱 El meu hort
+# El meu hort
 
 App personal per al mòbil per gestionar l’hort: croquis dels bancals, cultius, regs, tractaments, pluja i collites. Funciona com una app instal·lable (PWA) i, un cop carregada, també **sense connexió**.
 
