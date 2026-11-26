@@ -52,7 +52,7 @@ label{font-size:13px;color:var(--mu)}
 <nav><button data-t="map"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-beds"/></svg><span>Bancals</span></button><button data-t="rain"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-pluja"/></svg><span>Pluja</span></button><button data-t="har"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-agenda"/></svg><span>Agenda</span><b id="bdg" hidden></b></button><button data-t="cat"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-cultius"/></svg><span>Cultius</span></button><button data-t="cfg"><svg class="ic" width="23" height="23" aria-hidden="true"><use href="#i-ajust"/></svg><span>Ajustos</span></button></nav>
 <script>
 const F={S:"Solanàcies",C:"Cucurbitàcies",L:"Lleguminoses",B:"Crucíferes",U:"Umbel·líferes",A:"Al·liàcies",Q:"Amarantàcies",K:"Asteràcies",M:"Lamiàcies",R:"Rosàcies"};
-const RN={"Carbassó":"Carabassó","Carbassa":"Carabassa","Espinacs":"Espinac","Mongeta":"Mongeta tendra"};
+const RN={"Carbassó":"Carabassó","Carbassa":"Carabassa","Espinacs":"Espinac","Mongeta":"Mongeta tendra","Bok choy":"Pak choi"};
 const CROPS={};`Agrella|🌿|50|70|Poligonàcies|Rumex acetosa|Herba perenne de fulles verdes i àcides, de gust llimonós, per a amanides i salses.
 Albergínia|🍆|90|120|S|Solanum melongena|Fruit morat i carnós de forma allargada, que es menja sempre cuit.
 All|🧄|180|240|A|Allium sativum|Bulb dividit en grans, d’olor intensa, base de la cuina mediterrània.
@@ -68,7 +68,6 @@ Batata|🍠|120|150|Convolvulàcies|Ipomoea batatas|Tubercle dolç de pell rogen
 Bimi|🥦|70|90|B|Brassica oleracea|Híbrid de bròquil i bròquil xinès, de tiges llargues, tendres i dolces.
 Blat de moro dolç|🌽|80|100|Poàcies|Zea mays|Panotxa de grans tendres i dolços que es mengen bullits o a la brasa.
 Bleda|🥬|55|75|Q|Beta vulgaris|Hortalissa de fulles grosses i penca blanca, molt present a la cuina catalana.
-Bok choy|🥬|45|60|B|Brassica rapa subsp. chinensis|Col xinesa de penques blanques i fulles verdes, suau i cruixent.
 Borratja|🌿|50|70|Boraginàcies|Borago officinalis|Planta de fulles peludes i flors blaves comestibles, de gust fresc a cogombre.
 Bròquil|🥦|75|100|B|Brassica oleracea var. italica|Inflorescència verda i compacta, rica en vitamines, que es menja cuita.
 Bròquil xinès|🥦|50|70|B|Brassica oleracea var. alboglabra|Hortalissa de tiges i fulles verdes, lleugerament amargant (gai lan).
@@ -142,7 +141,7 @@ Nyame|🥔|240|300|Dioscoreàcies|Dioscorea|Tubercle gros i farinós de les plan
 Oca|🥔|180|240|Oxalidàcies|Oxalis tuberosa|Petit tubercle andí de colors vius i gust lleugerament àcid.
 Ocra|🫛|60|90|Malvàcies|Abelmoschus esculentus|Beina verda i allargada, mucilaginosa, que espesseix els guisats.
 Ortiga|🌿|40|60|Urticàcies|Urtica dioica|Planta de fulles urticants que, un cop cuita, és tendra i nutritiva.
-Pak choi|🥬|40|55|B|Brassica rapa subsp. chinensis|Verdura xinesa de tija carnosa i fulles verd fosc, de creixement ràpid.
+Pak choi|🥬|40|55|B|Brassica rapa subsp. chinensis|Verdura xinesa (també dita bok choy) de penques blanques i fulles verd fosc, de creixement ràpid.
 Palmito|🌴|1095|1825|Arecàcies|Bactris gasipaes|Cor tendre i blanc de certes palmeres, cruixent i suau.
 Pastanaga|🥕|80|120|U|Daucus carota|Arrel taronja i dolça, rica en betacarotè.
 Patata|🥔|90|130|S|Solanum tuberosum|Tubercle farinós, base de l’alimentació a molts països.
@@ -180,6 +179,170 @@ CROPS.Altre=["🌱",60,90,"",""];
 const CN=Object.keys(CROPS).filter(k=>k!="Altre").sort((a,b)=>a.localeCompare(b,"ca")).concat("Altre");
 const SVGI={"Bleda":"bleda","Bleda de colors":"bledac","Enciam":"enc","Enciam romà":"romana","Enciam iceberg":"iceberg","Enciam fulla de roure":"roure","Enciam cogollo":"cogollo","Escarola":"escarola","Endívia":"endivia","Radicchio":"radicchio","Ruca":"ruca","Canonges":"canonges"};
 const ico=(n,z=18)=>SVGI[n]?`<svg class="ci" width="${z}" height="${z}" aria-hidden="true"><use href="#c-${SVGI[n]}"/></svg>`:(CROPS[n]||CROPS.Altre)[0];
+/* ---- Icones botàniques generades (una de diferent per a cada hortalissa sense emoji propi) ---- */
+const CL={g1:"#5f7d35",g2:"#7d9440",g3:"#a7b663",g4:"#4a7a4a",g5:"#c9d58c",lm:"#b7cf3d",w:"#efe9d0",wh:"#f8f4e6",y:"#e3b341",o:"#e0883a",r:"#b5473a",p:"#7d3b6a",pk:"#d98aa0",br:"#8a6a4a",tn:"#cdb083",bk:"#3a2f2a",bl:"#5a7fb8"};
+const K=x=>CL[x]||x,TX="var(--tx)";
+const E=(cx,cy,rx,ry,f,r)=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${K(f)}"${r?` transform="rotate(${r} ${cx} ${cy})"`:""}/>`;
+const Pa=(d,f)=>`<path fill="${K(f)}" d="${d}"/>`;
+const Ln=(d,c,w)=>`<path d="${d}" style="stroke:${K(c)};stroke-width:${w||.9}"/>`;
+const GEN={
+ros:(n,rx,ry,a,b)=>{let o="";for(let i=0;i<n;i++)o+=`<ellipse cx="16" cy="${15-ry}" rx="${rx}" ry="${ry}" fill="${K(i%2?b:a)}" transform="rotate(${360/n*i} 16 16)"/>`;return o+E(16,16,2.6,2.6,b)},
+ball:(k,a,b)=>k==2?Pa("M16 3.6 C22 6 24 14 22.4 22 C21.6 26.4 19 28.4 16 28.4 C13 28.4 10.4 26.4 9.6 22 C8 14 10 6 16 3.6 Z",a)+Ln("M16 5 C14.6 12 14.6 22 16 28 M12.4 9 C11.6 15 12 21 13 25 M19.6 9 C20.4 15 20 21 19 25",b,.8)+Pa("M16 3.6 C19 4.4 21 6 22 8 C19.4 7.6 17.6 7.4 16 7.8 C14.4 7.4 12.6 7.6 10 8 C11 6 13 4.4 16 3.6 Z",b):E(16,16,11.4,11.4,a)+Ln("M16 5 C12.6 10 12.4 21 16 27 M16 5 C19.4 10 19.6 21 16 27 M6 12 C10 14.4 10 20 7 24 M26 12 C22 14.4 22 20 25 24",b,.8)+(k==1?Ln("M10 10 q2 1.4 4 0 M18 9 q2 1.4 4 0 M9 17 q2 1.4 4 0 M19 17 q2 1.4 4 0 M13 23 q2 1.4 4 0",b,.8):""),
+flo:(k,a,b)=>k==2?[[16,3.6,5,10],[9,11,4,9],[23,11,4,9],[11,19,4,8.4],[21,19,4,8.4],[16,12,4.4,9]].map(([x,y,w,h])=>Pa(`M${x} ${y} L${x+w} ${y+h} L${x-w} ${y+h} Z`,a)).join("")+Pa("M13.6 24 L18.4 24 L17.6 29.4 L14.4 29.4 Z",b):(k==1?E(9,23,5.6,3,b,-30)+E(23,23,5.6,3,b,30):Pa("M13 22 L19 22 L18.4 29 L13.6 29 Z",b))+[[10,16,5],[22,16,5],[16,11,5.4],[12.5,20,4.2],[19.5,20,4.2],[16,17,5]].map(([x,y,r])=>E(x,y,r,r,a)).join(""),
+rt:(k,a,b,x)=>{const D=["M16 28 C7 28 5.4 17 10.6 12.4 C13 10.4 19 10.4 21.4 12.4 C26.6 17 25 28 16 28 Z","M10.4 10 L21.6 10 L17.2 27.6 Q16 30.4 14.8 27.6 Z","M13 10 L19 10 L17.2 30 L14.8 30 Z","M9.6 10 L22.4 10 L18 28.4 Q16 31 14 28.4 Z","M16 29 C10 29 8.6 19 12 13 C13.4 10.6 18.6 10.6 20 13 C23.4 19 22 29 16 29 Z"][k];
+ return Pa(D,a)+(x=="T"?E(16,27.2,2.6,2,"wh"):"")+Ln("M16 10.4 C14 6 11 4.4 8.6 5.4 M16 10.4 V3.2 M16 10.4 C18 6 21 4.4 23.4 5.4",b,1.3)+(x=="L"?E(9,6,5.4,3.6,b,-25)+E(23,6,5.4,3.6,b,25):"")+(x&&x[0]=="f"?E(16,3,2.6,2.6,x.slice(2)):"")},
+bu:(k,a,b)=>{const L=Ln("M13.6 28.4 l-1 2.2 M16 28.4 v2.4 M18.4 28.4 l1 2.2",TX,.7),V=Ln("M16 7 C12.6 14 12.6 22 16 28 M16 7 C19.4 14 19.4 22 16 28",TX,.6);
+ if(k==0)return Pa("M16 6 C19 10 25.6 12 25.6 19 C25.6 25 21.4 28.4 16 28.4 C10.6 28.4 6.4 25 6.4 19 C6.4 12 13 10 16 6 Z",a)+V+L+Ln("M16 6 C16 3.4 15 2.4 13.6 1.6",b,1.4);
+ if(k==1)return Pa("M16 5 C18 9 24.6 11 24.6 18.6 C24.6 25 20.6 28.4 16 28.4 C11.4 28.4 7.4 25 7.4 18.6 C7.4 11 14 9 16 5 Z",a)+Ln("M16 8 C13 15 13 23 14.4 28 M16 8 C19 15 19 23 17.6 28 M16 8 C11 13 9.6 20 11 26 M16 8 C21 13 22.4 20 21 26",TX,.6)+L;
+ if(k==2)return Pa("M16 4 C18.6 9 22 11.6 22 19 C22 25.4 19.4 28.6 16 28.6 C12.6 28.6 10 25.4 10 19 C10 11.6 13.4 9 16 4 Z",a)+Ln("M16 6 C14 13 14 22 16 28 M16 6 C18 13 18 22 16 28",TX,.6)+L+Ln("M16 4 C16 2.4 15.4 1.6 14.6 1",b,1.4);
+ if(k==3)return Pa("M14.4 18 L15 3 L17 3 L17.6 18 Z",b)+Pa("M17.4 12 C21 10 24 6 26 3 C23.6 8 21.6 12 17.8 15 Z",b)+Pa("M12.6 23 C12.6 19 14.4 17.6 16 17.6 C17.6 17.6 19.4 19 19.4 23 C19.4 26.6 18 28.4 16 28.4 C14 28.4 12.6 26.6 12.6 23 Z",a)+L;
+ return E(16,19,9.4,9,a)+Ln("M11 11 L8 4 M16 10 V2.6 M21 11 L24 4",b,1.6)+E(8,4,3,2.2,b,-20)+E(24,4,3,2.2,b,20)+E(16,2.8,2.6,1.6,b)+Ln("M9 19 C12 22 20 22 23 19",TX,.6)},
+lk:(k,a,b)=>{const R=Ln("M14 28 l-1 2 M16 28 v2.2 M18 28 l1 2",TX,.7);
+ return k==1?Pa("M12 14 L20 14 L19 28 L13 28 Z",a)+Pa("M12 14 C8 11 6.6 7 7 3.6 C10.6 6 13 9.6 14 14 Z",b)+Pa("M20 14 C24 11 25.4 7 25 3.6 C21.4 6 19 9.6 18 14 Z",b)+Ln("M13.4 19 H18.6",TX,.6)+R:Pa("M13.2 16 L18.8 16 L18.4 28 L13.6 28 Z",a)+Pa("M13.2 16 C8 13 5.4 8 5 3 C10 6 13.6 10 15 16 Z",b)+Pa("M18.8 16 C24 13 26.6 8 27 3 C22 6 18.4 10 17 16 Z",b)+Pa("M14.4 16 C13.4 11 14.6 6 16 2.6 C17.4 6 18.6 11 17.6 16 Z",b)+R},
+pd:(k,a,b)=>{const O="M4 21 C8 11 20 7 28 9 C26 19 16 27 4 21 Z";
+ if(k==0)return Pa("M4 24 C10 24 22 14 28 5 C29 7 28.6 8.4 27.4 10 C22 19 12 27.4 4 27 Z",a)+Ln("M8 25 C14 22 21 15 26 8",TX,.6);
+ if(k==1)return Pa("M5 24 C6 12 18 6 27 8 C28 16 20 27 5 24 Z",a)+Ln("M8 22 C12 14 18 11 24 10",TX,.6)+Pa("M5 24 L3 27 L7 25 Z",b);
+ if(k==2)return Pa(O,a)+[[10.5,17,2.8],[15,14.6,2.8],[19.6,13,2.8],[23.6,11.8,2.3]].map(([x,y,r])=>E(x,y,r,r,b)).join("");
+ if(k==3)return Pa(O,a)+E(10,17.6,3.8,2.6,b,-30)+E(16,15,3.8,2.6,b,-30)+E(22,12.4,3.4,2.4,b,-30);
+ if(k==4)return Pa("M6 27 C4 25 4 23 6 21 L22 5 C24 3 27 4 28 6 C28 8 27 9 26 10 L10 26 C8.6 28 7.4 28.4 6 27 Z",a)+Ln("M9 22 L23 8",b,.8);
+ if(k==5)return Pa("M5 24 C6 12 18 6 27 8 C28 16 20 27 5 24 Z",a)+Ln("M8 20 l-1.4 -1.2 M12 17 l-1.4 -1.4 M16 14.4 l-1.2 -1.6 M20 12 l-1 -1.6 M24 10.4 l-.6 -1.8",TX,.6)+E(12,19,2.8,2.4,b)+E(19,15.4,2.8,2.4,b);
+ return Pa("M10 7 L22 7 L19.4 28 Q16 31 12.6 28 Z",a)+Pa("M9 7 L23 7 L21 4 L11 4 Z",b)+Ln("M13.6 8 L14.4 27 M16 8 V28.6 M18.4 8 L17.6 27",TX,.6)},
+fr:(k,a,b)=>Pa("M16 6 C20 6 21 10 22 14 C27 17 26 27 16 28 C6 27 5 17 10 14 C11 10 12 6 16 6 Z",a)+Ln("M16 8 V27 M12 15 C11 20 12 25 14 27 M20 15 C21 20 20 25 18 27",TX,.6)+Pa("M14 6 L18 6 L17 3 L15 3 Z",b),
+cu:(k,a,b)=>`<g transform="rotate(-38 16 16)"><rect x="2.5" y="11" width="27" height="10" rx="5" fill="${K(a)}"/>`+(k==0?Ln("M6 14.2 H26 M6 17.8 H26",b,.9):k==1?Ln("M5 13.2 H27 M4 16 H28 M5 18.8 H27",b,.8)+E(28,16,2,4.4,b):[[8,14],[12,18],[16,14],[20,18],[24,14],[10,15.6],[18,16.4]].map(([x,y])=>E(x,y,1.1,1.1,b)).join(""))+E(2.5,16,1.8,2.2,b)+`</g>`,
+tu:(k,a,b)=>{const D=[[11,14],[19,12],[14,20],[21,19],[17,24]].map(([x,y])=>E(x,y,.9,.9,b)).join("");
+ if(k==0)return Pa("M7 17 C6 11 12 8 18 9 C25 10 27 15 25 20 C23 26 15 27 10 24 C8 22 7 20 7 17 Z",a)+D;
+ if(k==1)return Pa("M3 22 C6 14 18 9 28 9 C29 14 20 24 8 26 C5 26.6 3 25 3 22 Z",a)+Ln("M8 22 C13 17 19 14 25 12",b,.8);
+ if(k==2)return E(11,18,6,5,a)+E(20,16,6.4,5.4,a)+E(15,22,6,4.6,a)+E(7,12,2.2,2.2,b)+E(25,11,2.2,2.2,b);
+ if(k==3)return Pa("M6 22 L22 6 L27 11 L11 27 Z",a)+E(24.4,8.4,3.6,2.4,b,-45)+Ln("M9 21 L21 9 M12 24 L24 12",b,.7);
+ if(k==4)return E(16,19,11,8,a)+Ln("M8 17 C12 14 20 14 24 17",TX,.6)+Ln("M11 11 l-1 -4 M16 11 V6 M21 11 l1 -4",b,1.2);
+ if(k==5)return E(16,19,9,8.6,a)+Ln("M8 17 H24 M8.6 21 H23.4 M10 25 H22",b,.8)+Pa("M16 11 C12 8 12 4 16 2 C20 4 20 8 16 11 Z",b);
+ if(k==6)return E(10,17,4,8,a,-20)+E(16,18,4,9,a)+E(22,17,4,8,a,20)+Ln("M9 12 L11 22 M16 11 V25 M23 12 L21 22",b,.7);
+ if(k==7)return E(16,16,10,9,a)+Ln("M10 24 l-2 5 M14 25 l-1 5 M18 25 l1 5 M22 24 l2 5",TX,.7)+Ln("M12 8 L11 3 M16 7 V2 M20 8 L21 3",b,1.4);
+ return[[9,12],[18,10],[23,17],[13,19],[19,24],[8,23]].map(([x,y])=>E(x,y,3.4,2.6,a,x*4)+E(x,y,.8,.8,b)).join("")},
+st:(k,a,b)=>{let o="";
+ if(k==0)for(let i=0;i<4;i++){const x=8+i*4.2;o+=Pa(`M${x} 28 L${x+1} 12 L${x+3} 12 L${x+3.4} 28 Z`,a)+E(x+2,9.4,3.2,3.6,b,(i-1.5)*8)}
+ else if(k==1)for(let i=0;i<3;i++){const x=7+i*6;o+=Pa(`M${x} 28 L${x+1} 10 L${x+5} 10 L${x+5.6} 28 Z`,a)+Ln(`M${x+3} 28 V12`,TX,.6)+E(x+3,7.6,4,3.4,b)}
+ else if(k==2)o+=Pa("M8 28 L11 10 L14 10 L11.4 28 Z",a)+Pa("M13 28 L14.4 10 L17.4 10 L15.8 28 Z",a)+Pa("M18 28 L18 10 L21 10 L21 28 Z",a)+E(16,7,11,5,b);
+ else if(k==5){[-16,0,16].forEach(g=>{o+=`<g transform="rotate(${g} 16 29)">`+Pa("M13.4 29 L13.8 9 L18.2 9 L18.6 29 Z",a)+Ln("M16 28 V11",TX,.6)+E(16,7,3.4,3,b)+`</g>`})}
+ else if(k==3){for(let i=0;i<5;i++){const x=9+i*3.4;o+=Ln(`M${x} 29 L${x+(i-2)*1.2} 6`,a,1.8)}o+=E(16,5,2.8,2.8,b)+E(11,7,2.4,2.4,b)}
+ else for(let i=0;i<3;i++){const x=10+i*6;o+=Pa(`M${x-2} 28 L${x-3} 13 L${x+3} 13 L${x+2} 28 Z`,a)+E(x,9,4.6,4.6,b,(i-1)*14)}
+ return o},
+sp:(k,a,b)=>{let o=Ln("M16 29 C16 20 16 10 16 3",b,1.2);
+ if(k==0){[25,19,13,8].forEach(y=>{o+=E(10.6,y,3.8,1.9,a,-32)+E(21.4,y,3.8,1.9,a,32)});o+=E(16,3.6,2.6,2.6,a)}
+ else if(k==1)o+=E(10,21,5.6,3.2,a,-30)+E(22,21,5.6,3.2,a,30)+E(10,13,5,3,a,-30)+E(22,13,5,3,a,30)+E(16,6,3.8,4.6,a);
+ else[[22,-1],[22,1],[14,-1],[14,1],[7,0]].forEach(([y,sg])=>{const x=16+sg*6;o+=Ln(`M16 ${y+4} L${x} ${y}`,b,1)+E(x,y-2,2.4,2.4,a)+E(x+sg*3,y+1,2.4,2.4,a)+E(x,y+2.4,2.4,2.4,a)});
+ return o},
+fl:(n,rx,ry,a,b,lf)=>{let o=Ln("M16 17 V30","g1",1.4)+(lf?E(9,25,5,4.4,"g2")+E(23,25,5,4.4,"g2"):E(10.6,26,4,2.4,"g2",-30)+E(21.4,26,4,2.4,"g2",30));
+ for(let i=0;i<n;i++)o+=`<ellipse cx="16" cy="${12-ry*1.1}" rx="${rx}" ry="${ry}" fill="${K(a)}" transform="rotate(${360/n*i} 16 12)"/>`;return o+E(16,12,2.8,2.8,b)},
+sr:(k)=>{let o="";
+ if(k==0){for(let i=0;i<7;i++){const x=8+i*2.7,y=7+i%3*3;o+=Ln(`M${x} 29 C${x-2} 22 ${x+2} 14 ${x} ${y}`,"tn",1)+E(x,y,1.5,1.5,"g3")}}
+ else if(k==1)o=Ln("M16 29 V15","tn",1.8)+E(10.4,13,5,3.4,"g4",-25)+E(21.6,13,5,3.4,"g4",25)+E(16,9,2,3,"g3");
+ else if(k==2)o=Ln("M16 29 V16","pk",2.2)+E(11,13,4.6,4,"g2",-20)+E(21,13,4.6,4,"g2",20);
+ else if(k==3)o=Ln("M20 29 C20 22 14 18 13 11","wh",3.6)+Pa("M8.6 11 C8 6 14 4 17 7 C18.6 10 15 14 11.6 14 C9.6 14 8.8 12.6 8.6 11 Z","y");
+ else for(let i=0;i<4;i++){const x=9+i*4.6;o+=Ln(`M${x} 29 L${x+(i-1.5)} 5`,"g2",2.2)}
+ return o},
+lf:(k,a,b)=>{const D=["M16 29 C7 25 6 13 16 3 C26 13 25 25 16 29 Z","M16 29 C7 25 6 13 16 3 C26 13 25 25 16 29 Z","M16 3 L28 25 C22 28 10 28 4 25 Z","M16 28 C4 21 3 9 9.6 6.4 C13 5 15.4 7 16 9.6 C16.6 7 19 5 22.4 6.4 C29 9 28 21 16 28 Z","M16 29 L11 26 L12 22 L7 20 L9.4 16 L5.4 12.6 L10 10.6 L10.4 6 L14.6 7.4 L16 3 L17.4 7.4 L21.6 6 L22 10.6 L26.6 12.6 L22.6 16 L25 20 L20 22 L21 26 Z","M16 29 L14 25 L7 25 L11 21 L4 18 L11 15.6 L6 11 L13 11 L10 5.6 L16 9.6 L22 5.6 L19 11 L26 11 L21 15.6 L28 18 L21 21 L25 25 L18 25 Z","M16 3 C22 8 22 16 20 21 L27 26 L20 25.6 L16 29 L12 25.6 L5 26 L12 21 C10 16 10 8 16 3 Z","M16 29 L16 3 Z","M16 29 C15 25 8 25 6 21 C9 20 10 18 8 15 C12 15 13 13 11 10 C14 10 15 8 16 3 C17 8 18 10 21 10 C19 13 20 15 24 15 C22 18 23 20 26 21 C24 25 17 25 16 29 Z"][k];
+ return Pa(D,a)+(k==1?Pa("M14.6 29 L15 8 L17 8 L17.4 29 Z","w"):Ln("M16 28 V6",b,.8))+Ln("M16 22 L11.6 17.6 M16 22 L20.4 17.6 M16 16 L12.4 12.6 M16 16 L19.6 12.6",b,.7)+(k==5?E(16,3,2.4,2.4,b):"")},
+fe:(a,b)=>Ln("M16 29 V19 C16 12 23 10 24 15 C25 20 19 22 18 18 C17 15 21 14 21.6 16.4",a,2.2)+Ln("M16 25 l-4 -2 M16 22 l4 -2",b,1.4),
+ar:(a,b)=>Pa("M16 5 C23 8 26 15 25 21 C24 26 20 29 16 29 C12 29 8 26 7 21 C6 15 9 8 16 5 Z",a)+Ln("M16 6 V28 M11 8 C9 14 10 22 13 28 M21 8 C23 14 22 22 19 28 M8 14 C12 17 20 17 24 14 M8.6 20 C12 23 20 23 23.4 20",TX,.6)+Pa("M14.6 29 L17.4 29 L17.4 31 L14.6 31 Z",b),
+sy:(a,b)=>[0,1,2].map(i=>{const x=9+i*5;return Pa(`M${x} 29 L${x+.4} 9 Q${x+1.4} 3.4 ${x+2.4} 9 L${x+2.8} 29 Z`,a)+Pa(`M${x+.2} 11 Q${x+1.4} 3.4 ${x+2.6} 11 Z`,b)+Ln(`M${x} 15 h2.8 M${x} 19 h2.8`,TX,.6)}).join(""),
+tr:(k,a,b)=>Pa("M16 4 L25 10 C26 14 22 18 18 20 L18 28 L14 28 L14 20 C10 18 6 14 7 10 Z",a)+Ln("M16 6 V19",TX,.6)+Pa("M13 28 L19 28 L18 31 L14 31 Z",b)+(k==1?E(8,29,5,1.8,b,-10)+E(24,29,5,1.8,b,10):""),
+br:(a,b)=>Ln("M16 29 V4",b,2.2)+E(11,10,4,4,a)+E(21,13,4,4,a)+E(11,18,4,4,a)+E(21,22,4,4,a)+E(11,26,3.6,3.6,a)+E(16,5,3,3,a),
+ra:(k,a,b)=>{let o="";[9,16,23].forEach(x=>{const t=k==0?10:k==2?8:12;o+=Ln(`M${x} 29 L${x} ${t+4}`,b,1.8);
+  if(k==1)o+=E(x+3.4,20,3.8,2,b,30)+E(x-3.4,24,3.8,2,b,-30);
+  if(k==2)o+=E(x+3.8,19,4.6,2.6,b,35)+E(x-3.8,23,4.6,2.6,b,-35);
+  const r=k==0?3.6:k==2?2.6:2.2;o+=E(x,t,r+1,r+1,a)+E(x-r,t+3,r,r,a)+E(x+r,t+3,r,r,a)});return o},
+fn:(a,b)=>E(16,21,8,7,"wh")+Ln("M10 20 C12 24 20 24 22 20 M16 14 V28",TX,.6)+Ln("M16 14 V5 M13 14 L9 6 M19 14 L23 6 M16 8 L12 4 M16 8 L20 4",a,1.2),
+fz:(a,b)=>Pa("M16 4.4 q2.4 -1.4 4 .6 q2.6 -.6 3.6 1.8 q2.8 .4 3 3 q2.4 1.2 1.6 3.8 q1.8 2 .2 4.4 q.6 2.6 -1.6 4 q-.4 2.6 -3 3.2 q-1.2 2.4 -3.8 2.2 q-2 1.8 -4 .4 q-2.6 .8 -4 -1.2 q-2.6 -.2 -3.2 -2.6 q-2.4 -1 -2 -3.6 q-2 -2 -.6 -4.2 q-.8 -2.6 1.4 -4 q.2 -2.6 2.8 -3 q1.2 -2.2 3.8 -1.8 q1.6 -1.4 3.4 -.4 Z",a)+E(16,16,5,5.4,b)+Ln("M12.6 13 q1.4 -1.4 2.4 0 M16.6 12 q1.6 -1.2 2.6 .4 M13.4 17 q1.6 1.2 2.8 -.2 M17 17.2 q1.6 .8 2.4 -.8",TX,.7)
+};
+const SPEC=`Agrella|lf|6,g3,g1
+All elefant|bu|1,wh,pk
+All tendre|bu|3,wh,g2
+Api|st|0,g3,g1
+Api-rave|tu|7,tn,g3
+Bardana|rt|2,br,g1,L
+Batata|tu|1,p,w
+Bimi|ra|0,g4,g1
+Borratja|fl|5,1.8,5,bl,bk,0
+Bròquil xinès|ra|2,wh,g4
+Brots d’alfals|sr|0
+Brots de bròquil|sr|1
+Brots de ceba|sr|4
+Brots de falguera|fe|g2,g1
+Brots de rave|sr|2
+Brots de soja|sr|3
+Calçot|lk|1,wh,g2
+Caputxina|fl|5,3.8,5,o,y,1
+Card|st|5,w,g1
+Carxofa|ar|g2,g1
+Carabassó|cu|0,g4,y
+Cebollí|st|3,g2,pk
+Chayote|fr|1,lm,g2
+Col|ball|0,g2,g4
+Col arrissada|fz|g4,g1
+Col de Brussel·les|br|g3,g1
+Col de cabdell|ball|0,g5,g3
+Col gallega|lf|1,g2,g1
+Col llombarda|ball|0,p,pk
+Col milanesa|ball|1,g2,g4
+Col verda|ros|7,5,8,g4,g2
+Col xinesa|ball|2,g5,g2
+Coliflor|flo|1,wh,g3
+Col-rave|bu|4,g5,g1
+Créixens|sp|0,g1,g2
+Daikon|rt|2,wh,g2
+Dent de lleó|lf|5,g3,y
+Escalunya|bu|2,#c78a5a,g2
+Escorçonera|rt|2,bk,g1,f:y
+Espàrrec|sy|g3,p
+Espinac|lf|0,g4,g1
+Espinac de Malabar|lf|3,g2,p
+Espinac de Nova Zelanda|lf|2,g3,g1
+Fava|pd|3,g2,w
+Fava tendra|pd|1,g3,g1
+Flor de carabassa|tr|0,o,g4
+Flor de carabassó|tr|1,y,g4
+Fonoll|fn|g2,wh
+Fulles de mostassa|ros|6,3.4,7,g2,y
+Grelo|ra|1,g3,g1
+Iuca|tu|3,br,wh
+Jícama|tu|4,tn,br
+Komatsuna|ros|5,4.4,7.4,g3,g1
+Luffa|cu|1,g2,br
+Maca|rt|4,tn,g1
+Malanga|tu|2,br,pk
+Meló amarg|cu|2,g1,lm
+Mizuna|ros|11,1.6,7.4,g3,g5
+Mongeta tendra|pd|0,g2,g1
+Nabiza|lf|8,g2,g1
+Nap|rt|0,wh,p
+Napicol|rt|0,y,p
+Nyàmera|tu|5,br,g2
+Nyame|tu|1,br,tn
+Oca|tu|6,y,r
+Ocra|pd|6,g2,g1
+Ortiga|lf|4,g1,g2
+Pak choi|st|4,w,g4
+Pèsol|pd|2,g3,lm
+Porro|lk|0,wh,g4
+Rave|rt|0,r,g2
+Rave picant|rt|3,tn,g1,L
+Ravenet|rt|4,pk,g2,T
+Romanesco|flo|2,lm,g2
+Ruibarbre|st|2,r,g1
+Salsifí|rt|2,tn,g1,f:p
+Soja verda|pd|5,g3,y
+Tatsoi|ros|9,3,6,g4,g2
+Tirabec|pd|4,g5,g3
+Verdolaga|ros|7,2.4,4.2,g2,r
+Xicoira|ros|8,2,7.6,g3,bl
+Xirivia|rt|3,wh,g3
+Xufa|tu|8,br,tn
+Julivert|sp|2,g2,g1
+Alfàbrega|sp|1,g3,g1`;
+(()=>{let sy="";SPEC.split("\n").forEach((l,i)=>{const[n,c,a]=l.split("|"),args=(a||"").split(",").map(v=>v!==""&&!isNaN(v)?+v:v);
+ sy+=`<symbol id="c-g${i}" viewBox="0 0 32 32"><g style="stroke:var(--tx);stroke-width:.9;stroke-linejoin:round;stroke-linecap:round;fill:none">${GEN[c](...args)}</g></symbol>`;SVGI[n]="g"+i});
+ try{document.querySelector("svg defs").insertAdjacentHTML("beforeend",sy)}catch(e){}})();
 /* Associacions de cultius: 2 = molt bona, 1 = bona, -1 = convé evitar; la resta = neutra */
 const PAIRS=[["Tomàquet","Alfàbrega",2],["Pebrot","Alfàbrega",2],["Albergínia","Alfàbrega",1],["Tomàquet","Pastanaga",1],["Tomàquet","Julivert",1],["Tomàquet","Ceba",1],["Tomàquet","All",1],["Tomàquet","Enciam",1],["Tomàquet","Espinacs",1],
 ["Tomàquet","Col",-1],["Tomàquet","Bròquil",-1],["Tomàquet","Patata",-1],["Tomàquet","Pèsol",-1],["Pebrot","Patata",-1],["Albergínia","Patata",-1],["Pebrot","Ceba",1],["Pebrot","Pastanaga",1],["Pebrot","Julivert",1],["Albergínia","Mongeta",2],
@@ -240,7 +403,7 @@ function rate(a,b){const ba=BASE[a]||a,bb=BASE[b]||b;if(ba==bb)return 0;
  const fa=(CROPS[a]||[])[3],fb=(CROPS[b]||[])[3];if(!fa||!fb)return 0;
  const r=FR.find(([x,y])=>(x==fa&&y==fb)||(x==fb&&y==fa));return r?r[2]:0}
 const OFFF={"Solanàcies":45,"Crucíferes":35,"Cucurbitàcies":20,"Al·liàcies":50,"Asteràcies":25,"Umbel·líferes":40,"Amarantàcies":20,"Lleguminoses":14,"Lamiàcies":30,"Rosàcies":0,"Poàcies":14};
-const OFFC={"Pastanaga":14,"Rave":10,"Ravenet":10,"Daikon":14,"Xirivia":14,"Salsifí":14,"Escorçonera":14,"Remolatxa":25,"Julivert":40,"Alfàbrega":30,"Cebollí":30,"Ceba":50,"Porro":60,"Api":55,"Api-rave":60,"Pebrot":55,"Albergínia":55,"Bleda":28,"Bleda de colors":28,"Espinac":15,"Carxofa":60,"Card":45,"Canonges":20,"Ruca":15,"Fulles de mostassa":15,"Mizuna":15,"Komatsuna":15,"Pak choi":20,"Bok choy":20,"Tatsoi":20,"Créixens":20,"Col de Brussel·les":45,"Coliflor":40,"Romanesco":40,"Col-rave":30,"Napicol":30,"Nap":14,"Grelo":10,"Nabiza":10,"Maca":30,"Rave picant":30,"Carabassa":25,"Meló":25,"Síndria":25,"Chayote":30,"Luffa":30,"Pèsol":21,"Fava":21,"Fava tendra":21,"Tirabec":21,"Soja verda":14,"Ocra":35,"Agrella":35,"Borratja":20,"Dent de lleó":21,"Ortiga":30,"Verdolaga":20,"Espinac de Malabar":21,"Espàrrec":365,"Ruibarbre":180,"Palmito":365,"Gingebre":30,"Cúrcuma fresca":30,"Iuca":30,"Malanga":30,"Nyàmera":30,"Nyame":30,"Oca":20,"Xufa":20,"Jícama":25,"Brots d’alfals":0,"Brots de bròquil":0,"Brots de ceba":0,"Brots de rave":0,"Brots de soja":0,"Brots de bambú":0,"Brots de falguera":0};
+const OFFC={"Pastanaga":14,"Rave":10,"Ravenet":10,"Daikon":14,"Xirivia":14,"Salsifí":14,"Escorçonera":14,"Remolatxa":25,"Julivert":40,"Alfàbrega":30,"Cebollí":30,"Ceba":50,"Porro":60,"Api":55,"Api-rave":60,"Pebrot":55,"Albergínia":55,"Bleda":28,"Bleda de colors":28,"Espinac":15,"Carxofa":60,"Card":45,"Canonges":20,"Ruca":15,"Fulles de mostassa":15,"Mizuna":15,"Komatsuna":15,"Pak choi":20,"Tatsoi":20,"Créixens":20,"Col de Brussel·les":45,"Coliflor":40,"Romanesco":40,"Col-rave":30,"Napicol":30,"Nap":14,"Grelo":10,"Nabiza":10,"Maca":30,"Rave picant":30,"Carabassa":25,"Meló":25,"Síndria":25,"Chayote":30,"Luffa":30,"Pèsol":21,"Fava":21,"Fava tendra":21,"Tirabec":21,"Soja verda":14,"Ocra":35,"Agrella":35,"Borratja":20,"Dent de lleó":21,"Ortiga":30,"Verdolaga":20,"Espinac de Malabar":21,"Espàrrec":365,"Ruibarbre":180,"Palmito":365,"Gingebre":30,"Cúrcuma fresca":30,"Iuca":30,"Malanga":30,"Nyàmera":30,"Nyame":30,"Oca":20,"Xufa":20,"Jícama":25,"Brots d’alfals":0,"Brots de bròquil":0,"Brots de ceba":0,"Brots de rave":0,"Brots de soja":0,"Brots de bambú":0,"Brots de falguera":0};
 /* Cultius que normalment es planten amb planter, bulb, tubercle o arpa: els dies base són des de la plantació; amb llavor s’hi afegeix aquest temps */
 const SEEDX={"Patata":60,"All":150,"All elefant":180,"All tendre":90,"Calçot":150,"Escalunya":40,"Maduixa":120,"Moniato":45,"Batata":45,"Alvocat":1095,"Nopal":365};
 function off(n){const o=OFFC[n];if(o!==undefined)return o;const f=(CROPS[n]||[])[3];return OFFF[f]!==undefined?OFFF[f]:21}
@@ -267,7 +430,8 @@ function needsWater(b){
  const hot=near.some(x=>x.tx>25),lim=hot?3:4,mm=mmSince(ref);
  return n>lim&&mm<5&&!near.some(x=>x.mm>5)?{n,mm,hot,ref:w?"l’últim reg":"la sembra"}:null}
 const ret=b=>(b.log||[]).map((x,i)=>[x,i]).filter(p=>p[0].t=="h").sort((p,q)=>p[0].d<q[0].d?1:p[0].d>q[0].d?-1:q[1]-p[1]).map(p=>p[0]);
-let edit=false,goSheet=false,lastTab=null;
+let edit=false,goSheet=false,lastTab=null,hg="d",csort="a";
+const ALS={"Pak choi":"bok choy"};
 const LVI=["lleu","mitjana","forta"],DL=["Millorant (fixa nitrogen)","Lleuger","Moderat","Molt exigent"];
 /* --- Lluna --- */
 function moonAge(d){const dt=P(d);dt.setHours(12);const jd=dt.getTime()/864e5+2440587.5,a=(jd-2451550.1)%29.530588853;return a<0?a+29.530588853:a}
@@ -301,7 +465,7 @@ function pestRec(i,lv){if(i===""||i==null)return"";const p=PESTS[+i];
  return `<div class="cr"><b>${esc(p.n)}</b><div class="mu">${esc(p.s)}</div><div style="margin-top:6px"><b style="font-size:14px">Actuació ${LVI[lv]}</b>${p.a[lv].map((x,k)=>`<div class="hist" style="justify-content:flex-start;gap:8px;align-items:flex-start"><span class="dt ${k?"d1":"d2"}">${k?"●":"●●"}</span><span>${esc(x)}${k?"":' <span class="tag">recomanat</span>'}</span></div>`).join("")}</div><div class="mu" style="margin-top:6px">Prevenció: ${esc(p.pre)}</div><div class="mu" style="margin-top:6px">Només es proposen mesures i productes admesos en agricultura ecològica (Reg. UE 2018/848). Comprova que el producte estigui autoritzat per al cultiu a Espanya i segueix l’etiqueta (dosi i termini de seguretat).</div></div>`}
 /* --- Rotacio (agricultura regenerativa) --- */
 function dem(n){const f=(CROPS[n]||[])[3];if(!f||/^Brots/.test(n))return null;
- const o={"Rave":1,"Ravenet":1,"Daikon":1,"Ruca":1,"Créixens":1,"Fulles de mostassa":1,"Mizuna":1,"Komatsuna":2,"Pak choi":2,"Bok choy":2,"Tatsoi":2,"Pastanaga":1,"Xirivia":2,"Salsifí":1,"Escorçonera":1,"Carxofa":3,"Card":3,"Api":3,"Api-rave":3,"Patata":3,"Blat de moro dolç":3,"Moniato":2,"Batata":2,"Remolatxa":2,"Fonoll":2,"Maduixa":2};
+ const o={"Rave":1,"Ravenet":1,"Daikon":1,"Ruca":1,"Créixens":1,"Fulles de mostassa":1,"Mizuna":1,"Komatsuna":2,"Pak choi":2,"Tatsoi":2,"Pastanaga":1,"Xirivia":2,"Salsifí":1,"Escorçonera":1,"Carxofa":3,"Card":3,"Api":3,"Api-rave":3,"Patata":3,"Blat de moro dolç":3,"Moniato":2,"Batata":2,"Remolatxa":2,"Fonoll":2,"Maduixa":2};
  if(o[n]!==undefined)return o[n];
  const g={"Lleguminoses":0,"Solanàcies":3,"Cucurbitàcies":3,"Crucíferes":3,"Poàcies":3,"Al·liàcies":1,"Lamiàcies":1,"Boraginàcies":1,"Asteràcies":1}[f];return g===undefined?2:g}
 function rotAnalyze(b,cand){
@@ -332,6 +496,140 @@ function rotBlock(b,rt){const ra=rotAnalyze(b),nc=nextCrops(b),T={e:["v v-1","Co
  +(nc.length?`<div class="mu" style="margin-top:6px">Proper cultiu recomanat: ${nc.map(n=>ico(n,14)+" "+esc(n)).join(" · ")}</div>`:"")
  +(rt.length?`<div class="mu" style="margin-top:6px">${ic("rot",16)} Anteriors: ${rt.slice(0,4).map(x=>ico(x.n,14)+" "+esc(x.n)+(FAM[x.n]?" ("+FAM[x.n]+")":"")).join(" · ")}</div>`:"")
  +`<div class="mu" style="margin-top:6px">Criteris: no repetir família en 3 anys, alternar cultius exigents amb lleguminoses i lleugers, i no deixar el sòl nu.</div>`}
+/* Marc de plantació orientatiu: cm entre plantes | cm entre fileres (0 = no aplica) */
+const MAR={};`Agrella|30|30
+Albergínia|50|80
+All|10|25
+All elefant|20|30
+All tendre|8|20
+Alvocat|500|500
+Amarant|20|40
+Api|30|40
+Api-rave|30|40
+Arrel de lotus|100|100
+Bardana|15|40
+Batata|30|90
+Bimi|30|40
+Blat de moro dolç|25|60
+Bleda|30|40
+Bleda de colors|30|40
+Borratja|30|40
+Bròquil|40|50
+Bròquil xinès|25|30
+Brots d’alfals|0|0
+Brots de bambú|0|0
+Brots de bròquil|0|0
+Brots de ceba|0|0
+Brots de falguera|0|0
+Brots de rave|0|0
+Brots de soja|0|0
+Calçot|10|30
+Canonges|10|15
+Caputxina|30|40
+Carabassa|100|150
+Carabassó|80|100
+Card|50|80
+Carxofa|80|100
+Ceba|10|25
+Cebollí|10|20
+Chayote|200|300
+Cogombre|40|100
+Col|50|60
+Col arrissada|40|50
+Col de Brussel·les|60|70
+Col de cabdell|50|60
+Col gallega|50|60
+Col llombarda|50|60
+Col milanesa|50|60
+Col verda|40|50
+Col xinesa|35|40
+Coliflor|50|60
+Col-rave|25|30
+Créixens|15|20
+Cúrcuma fresca|25|40
+Daikon|15|30
+Dent de lleó|20|25
+Enciam|25|30
+Enciam romà|25|30
+Enciam iceberg|30|35
+Enciam fulla de roure|25|30
+Enciam cogollo|20|25
+Endívia|20|30
+Escalunya|15|25
+Escarola|25|30
+Escorçonera|10|30
+Espàrrec|40|150
+Espinac|10|25
+Espinac de Malabar|30|60
+Espinac de Nova Zelanda|40|60
+Fava|20|60
+Fava tendra|20|60
+Fisalis|60|100
+Flor de carabassa|100|150
+Flor de carabassó|80|100
+Fonoll|25|40
+Fulles de mostassa|10|25
+Gingebre|25|40
+Grelo|15|30
+Iuca|100|100
+Jícama|30|90
+Komatsuna|15|25
+Luffa|50|150
+Maca|15|25
+Maduixa|30|40
+Malanga|60|90
+Meló|70|150
+Meló amarg|50|150
+Mizuna|15|25
+Mongeta tendra|10|50
+Moniato|30|90
+Nabiza|10|25
+Nap|10|30
+Napicol|25|40
+Nopal|60|100
+Nyàmera|60|90
+Nyame|40|100
+Oca|30|60
+Ocra|40|70
+Ortiga|30|40
+Pak choi|20|30
+Palmito|200|300
+Pastanaga|5|25
+Patata|30|70
+Pebrot|40|60
+Pèsol|5|50
+Porro|10|30
+Radicchio|25|30
+Rave|5|20
+Rave picant|40|60
+Ravenet|5|15
+Remolatxa|10|30
+Romanesco|50|60
+Ruca|5|20
+Ruibarbre|100|100
+Salsifí|10|30
+Síndria|100|200
+Soja verda|10|40
+Tatsoi|20|25
+Tirabec|5|50
+Tomàquet|50|80
+Verdolaga|10|20
+Xicoira|25|30
+Xirivia|10|40
+Xufa|15|30
+Julivert|15|25
+Alfàbrega|25|30`.split("\n").forEach(l=>{const[n,a,b]=l.split("|");MAR[n]=[+a,+b]});
+function marc(n){const q=MAR[n];if(!q)return"";
+ if(!q[0])return'<div class="mu">Marc de plantació: no aplica (germinats en safata o pot).</div>';
+ const d=10000/(q[0]*q[1]),f=d>=10?Math.round(d):d>=1?(Math.round(d*10)/10):0;
+ return `<div class="mu">Marc de plantació: <b>${q[0]} × ${q[1]} cm</b> (entre plantes × entre fileres)${f?" · ≈ "+String(f).replace(".",",")+" plantes/m²":" · una planta cada "+(q[0]*q[1]/10000).toString().replace(".",",")+" m²"}</div>`}
+function cropOpts(){if(csort!="f")return CN.map(k=>`<option>${esc(k)}</option>`).join("");
+ const g={};CN.forEach(n=>{const f=n=="Altre"?"Altres":(CROPS[n][3]||"Altres");(g[f]=g[f]||[]).push(n)});
+ return Object.keys(g).sort((a,b)=>a.localeCompare(b,"ca")).map(f=>`<optgroup label="${esc(f)}">${g[f].map(k=>`<option>${esc(k)}</option>`).join("")}</optgroup>`).join("")}
+function harvestDone(b,i){const c=b.crops[i];if(!c)return;(b.log=b.log||[]).push({k:uid(),t:"c",d:today(),n:c.crop});
+ if(confirm("Era l’última collita de "+c.crop+"? Accepta per retirar el cultiu del bancal (queda a l’historial de rotació). Cancel·la per apuntar només una collita parcial.")){b.log.push({k:uid(),t:"h",d:today(),n:c.crop,s:c.sown,m:c.m||"s"});b.crops.splice(i,1);toast(c.crop+" collit i retirat")}
+ else{c.snz=add(today(),7);toast("Collita apuntada; avís silenciat 7 dies")}
+ save();render()}
 function rotWarn(b,c){const f=FAM[c];if(!f)return"";const r=ret(b).slice(0,3).find(x=>FAM[x.n]==f);
  return r?`<div class="v v-1">${ic("rot",16)} Mateixa família (${f}) que ${esc(r.n)}, retirat el ${fmt(r.d)}: convé rotar</div>`:""}
 function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}
@@ -380,7 +678,7 @@ function sheet(b){
  return `<div class="card" id="bs" style="margin-top:12px"><div class="row"><button class="b" id="up" aria-label="Torna al croquis">${ic("beds",16)}</button><input id="nm" class="g1" value="${esc(b.name)}" aria-label="Nom"><button class="b d" id="del">${ic("bin",16)}</button></div>
  ${nw?`<div class="v vw">${ic("gota",16)} Convé regar: ${nw.n} dies des de ${nw.ref}, només ${nm(nw.mm)} mm de pluja${nw.hot?" i calor (>25 °C)":""}</div>`:""}
  <b>Cultius del bancal</b>${rows||'<div class="mu">Encara no hi ha cap cultiu.</div>'}${b.crops.some(c=>c.fx!==undefined)?'<div class="row"><button class="b" id="ia">Recol·loca les icones</button></div>':""}
- <div class="row"><select id="cr" class="g1"><option value="">Afegeix un cultiu…</option>${CN.map(k=>`<option>${esc(k)}</option>`).join("")}</select></div>
+ <div class="row"><select id="cr" class="g1"><option value="">Afegeix un cultiu…</option>${cropOpts()}</select><button class="b" id="so" type="button">${csort=="f"?"Ordre A–Z":"Per família"}</button></div>
  <div id="pv"></div>
  <div class="row" id="addrow" hidden><select id="md"><option value="s">Llavor</option><option value="p">Plàntula</option></select><input type="date" id="sd" value="${t}"><button class="b p" data-ad="1">${ic("llavor",16)} Plantat</button><button class="b" data-ad="0">Vull plantar</button></div>
  ${ps.length?`<b>Simbiosi</b>${compat(ps)}`:""}
@@ -393,7 +691,7 @@ function sheet(b){
  <div class="row"><input id="tn" class="g1" placeholder="Producte aplicat (opcional)"><button class="b p" data-lg="t">${ic("trac",18)} Tractat</button></div>
  <div class="mu">Últim reg: ${w?ago(w)+" · pluja des d’aleshores: "+nm(mmSince(w))+" mm":"—"}<br>Últim tractament: ${last(b,"t")?ago(last(b,"t")):"—"}</div>
  ${rotBlock(b,rt)}
- ${lg.map(x=>`<div class="hist"><span>${x.t=="w"?ic("reg",16)+" Reg":x.t=="f"?ic("fert",16)+" Adob"+(x.n?" · "+esc(x.n):""):x.t=="h"?ic("collita",16)+" Retirat: "+esc(x.n):ic("trac",16)+" "+(x.p?esc(x.p)+" ("+LVI[x.i]+")"+(x.n?" · "+esc(x.n):""):esc(x.n||"Tractament"))} · ${fmt(x.d)}</span><button data-rm="${x.k}">${ic("x",14)}</button></div>`).join("")}</div>`}
+ ${lg.map(x=>`<div class="hist"><span>${x.t=="w"?ic("reg",16)+" Reg":x.t=="f"?ic("fert",16)+" Adob"+(x.n?" · "+esc(x.n):""):x.t=="c"?ic("collita",16)+" Collita: "+esc(x.n):x.t=="h"?ic("collita",16)+" Retirat: "+esc(x.n):ic("trac",16)+" "+(x.p?esc(x.p)+" ("+LVI[x.i]+")"+(x.n?" · "+esc(x.n):""):esc(x.n||"Tractament"))} · ${fmt(x.d)}</span><button data-rm="${x.k}">${ic("x",14)}</button></div>`).join("")}</div>`}
 function rRain(){
  const t=today(),r=lastRain(),fc=(S.wx?.days||[]).filter(x=>x.d>t);
  const past=[];for(let i=0;i<14;i++){const d=add(t,-i),x=dayRain(d);past.push([d,x])}
@@ -414,7 +712,7 @@ function rRain(){
  m.querySelectorAll("[data-rr]").forEach(e=>e.onclick=()=>{S.rain=S.rain.filter(x=>x.k!=e.dataset.rr);save();render()})}
 /* ---- Clima, GDD, alertes, agenda i calendari de plantació ---- */
 const CW=["Tomàquet","Pebrot","Albergínia","Fisalis","Carabassó","Carabassa","Cogombre","Meló","Síndria","Meló amarg","Chayote","Luffa","Mongeta tendra","Ocra","Blat de moro dolç","Alfàbrega","Moniato","Batata","Soja verda","Amarant","Verdolaga","Espinac de Malabar","Xufa","Jícama","Gingebre","Cúrcuma fresca","Iuca","Malanga","Nyàmera","Nyame","Flor de carabassa","Flor de carabassó"];
-const CC=["Enciam","Enciam romà","Enciam iceberg","Enciam fulla de roure","Enciam cogollo","Espinac","Ruca","Canonges","Escarola","Endívia","Radicchio","Xicoira","Bok choy","Pak choi","Tatsoi","Komatsuna","Mizuna","Fulles de mostassa","Rave","Ravenet","Daikon","Créixens"];
+const CC=["Enciam","Enciam romà","Enciam iceberg","Enciam fulla de roure","Enciam cogollo","Espinac","Ruca","Canonges","Escarola","Endívia","Radicchio","Xicoira","Pak choi","Tatsoi","Komatsuna","Mizuna","Fulles de mostassa","Rave","Ravenet","Daikon","Créixens"];
 const CM=["Bleda","Bleda de colors","Pastanaga","Remolatxa","Julivert","Cebollí","Api","Api-rave","Fonoll","Xirivia","Salsifí","Escorçonera","Borratja","Caputxina","Dent de lleó","Espinac de Nova Zelanda","Agrella","Ortiga","Oca","Maduixa"];
 /* tb: temperatura base GDD; gpd: GDD/dia en època òptima; tg/tt: temperatura mitjana mínima per sembrar/trasplantar; tx: calor màxima còmoda; lo-hi: rang òptim; cap: límit superior GDD; fr: sensible a gelada */
 const PROF={w:{tb:10,gpd:13,tg:14,tt:16,tx:32,lo:18,hi:28,cap:32,fr:1},p:{tb:5,gpd:11,tg:8,tt:8,tx:26,lo:12,hi:22,cap:28,fr:1},m:{tb:5,gpd:12,tg:8,tt:8,tx:28,lo:10,hi:24,cap:28,fr:0},c:{tb:4,gpd:10,tg:5,tt:6,tx:24,lo:8,hi:20,cap:26,fr:0},h:{tb:4,gpd:11,tg:5,tt:5,tx:26,lo:8,hi:20,cap:28,fr:0}};
@@ -494,10 +792,10 @@ function alerts(){const t=today(),out=[];
  const bolt=items.filter(i=>{if(i.k!="c")return false;const st=stageOf(i.c);return st&&st.i>=1&&st.i<=4});
  const f3=fc.slice(0,3).filter(x=>x.tx!=null),hs=fc.slice(0,4).some(x=>x.tx>=30)||(f3.length&&f3.reduce((a,x)=>a+x.tx,0)/f3.length>=27);
  if(bolt.length&&hs)out.push({k:"w",t:`Risc d’espigolament per calor: ${nm(bolt.map(i=>i.c.crop+" ("+i.b.name+")"))}. Cull el que estigui a punt, ombreja i rega al matí.`});
- items.forEach(({b,c})=>{const st=stageOf(c);if(!st)return;const rs=fc.slice(0,3).some(x=>x.mm>=15);
-  if(st.i==4)out.push({k:"g",t:`Punt òptim de collita: ${c.crop} (${b.name})${rs?". Cull abans que plogui.":"."}`});
-  else if(st.i==5)out.push({k:"w",t:`${c.crop} (${b.name}) ha passat el punt: cull-ho aviat per evitar espigolament o pèrdua de qualitat.`});
-  else if(st.harv){const dd=diff(t,st.harv);if(dd>0&&dd<=3)out.push({k:"g",t:`${c.crop} (${b.name}): collita en ${dd} ${dd==1?"dia":"dies"} (${fmt(st.harv)}).`})}});
+ items.forEach(({b,c})=>{if(c.snz&&c.snz>t)return;const st=stageOf(c);if(!st)return;const rs=fc.slice(0,3).some(x=>x.mm>=15),act={b:b.id,c:b.crops.indexOf(c)};
+  if(st.i==4)out.push({k:"g",t:`Punt òptim de collita: ${c.crop} (${b.name})${rs?". Cull abans que plogui.":"."}`,act});
+  else if(st.i==5)out.push({k:"w",t:`${c.crop} (${b.name}) ha passat el punt: cull-ho aviat per evitar espigolament o pèrdua de qualitat.`,act});
+  else if(st.harv){const dd=diff(t,st.harv);if(dd>0&&dd<=3)out.push({k:"g",t:`${c.crop} (${b.name}): collita en ${dd} ${dd==1?"dia":"dies"} (${fmt(st.harv)}).`,act})}});
  const o={e:0,w:1,g:2,i:3};return out.sort((a,b)=>o[a.k]-o[b.k])}
 function updBadge(){const e=document.getElementById("bdg");if(!e)return;let n=0;try{n=alerts().filter(a=>a.k!="i").length}catch(x){}e.textContent=n||"";e.hidden=!n}
 function notify(){try{if(typeof Notification=="undefined"||Notification.permission!="granted"||S.nd==today())return;
@@ -516,26 +814,30 @@ function fertPlan(b){const out=[],t=today(),lf=last(b,"f");
  (b.crops||[]).filter(c=>c.sown).forEach(c=>{const dm=dem(c.crop),k=cls(c.crop);if(dm===null||dm===0||!k)return;const kd=kind(c.crop),pf=PROF[k],need=days(c)[0]*pf.gpd,ok=d=>!lf||lf<add(d,-21);
   if(diff(c.sown,t)<=10&&(!lf||lf<c.sown))out.push({d:t,x:`Adob de fons (${c.crop}): compost madur`});
   const q=gddSince(c,pf);if(q&&q.g>=need)return;
-  (dm==3?[.35,.65]:dm==2?[.45]:[]).forEach(p=>{const d=gddDate(c,need*p,pf);if(!d)return;if(d<=add(t,14)&&ok(d))out.push({d:d<t?t:d,x:`Adob de cobertora (${c.crop}): ${FERT[kd]}`})})});
+  (dm==3?[.35,.65]:dm==2?[.45]:[]).forEach(p=>{const d=gddDate(c,need*p,pf);if(!d)return;if(d<=add(t,14)&&ok(d))out.push({d:d<t?t:d,x:`Adob de cobertura (${c.crop}): ${FERT[kd]}`})})});
  return out}
 function plan(){const t=today(),T=[];
  S.beds.forEach(b=>{const sw=(b.crops||[]).filter(c=>c.sown);if(!sw.length)return;
   waterPlan(b).forEach(d=>T.push({d,t:"w",b,x:"Reg"}));
   fertPlan(b).forEach(o=>T.push({d:o.d,t:"f",b,x:o.x}));
-  sw.forEach(c=>{const st=stageOf(c),s=span(c),d=(st&&st.harv)||(s&&s[0]);if(d&&d<=add(t,14))T.push({d:d<t?t:d,t:"h",b,x:"Collita: "+c.crop})})});
+  sw.forEach(c=>{const st=stageOf(c),s=span(c);let d=(st&&st.harv)||(s&&s[0]);if(d&&c.snz&&d<c.snz)d=c.snz;if(d&&d<=add(t,14))T.push({d:d<t?t:d,t:"h",b,x:"Collita: "+c.crop,ci:b.crops.indexOf(c)})})});
  return T.sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.t<b.t?-1:1)}
 function rHar(){const t=today(),al=alerts(),pl=plan(),AC={e:"v v-1",w:"v vw",g:"v v2",i:"v v0"},by={};pl.forEach(o=>(by[o.d]=by[o.d]||[]).push(o));const ds=Object.keys(by).sort();
- let h=`<div class="card"><b>Alertes</b>${al.length?al.map(a=>`<div class="${AC[a.k]}">${esc(a.t)}</div>`).join(""):'<div class="mu">Cap alerta ara mateix.</div>'}</div>`;
+ let h=`<div class="card"><b>Alertes</b>${al.length?al.map(a=>`<div class="${AC[a.k]}" style="display:block"><div>${esc(a.t)}</div>${a.act?`<div class="row"><button class="b" data-ak="snz" data-ab="${a.act.b}" data-ac="${a.act.c}">Posposa 3 dies</button><button class="b p" data-ak="done" data-ab="${a.act.b}" data-ac="${a.act.c}">Collit</button></div>`:""}</div>`).join(""):'<div class="mu">Cap alerta ara mateix.</div>'}</div>`;
  h+=`<div class="card"><b>Pròxims 14 dies</b>${ds.length?"":`<div class="mu">${S.loc?"Res programat: sembra o planta cultius als bancals i s’omplirà sol.":"Tria la ubicació a Ajustos per calcular reg, adob i collita amb el clima de la teva zona."}</div>`}`
-  +ds.map(d=>`<div style="margin-top:8px"><b style="font-size:14px;font-family:var(--ser)">${d==t?"Avui":d==add(t,1)?"Demà":fmt(d)}</b>`+by[d].map(o=>`<div class="hist"><span>${ic(o.t=="w"?"reg":o.t=="f"?"fert":"collita",16)} ${esc(o.b.name)} · ${esc(o.x)}</span>${o.t!="h"?`<button class="b" data-tk="${o.t}" data-bd="${o.b.id}">Fet</button>`:""}</div>`).join("")+"</div>").join("")
+  +ds.map(d=>`<div style="margin-top:8px"><b style="font-size:14px;font-family:var(--ser)">${d==t?"Avui":d==add(t,1)?"Demà":fmt(d)}</b>`+by[d].map(o=>`<div class="hist"><span>${ic(o.t=="w"?"reg":o.t=="f"?"fert":"collita",16)} ${esc(o.b.name)} · ${esc(o.x)}</span>${o.t!="h"?`<button class="b" data-tk="${o.t}" data-bd="${o.b.id}">Fet</button>`:`<button class="b" data-ak="done" data-ab="${o.b.id}" data-ac="${o.ci}">Collit</button>`}</div>`).join("")+"</div>").join("")
   +(pl.length?'<div class="row"><button class="b" id="ics">Exporta a calendari (.ics)</button></div>':"")+"</div>";
  h+=plantNow();
- const l=[];S.beds.forEach(b=>(b.crops||[]).forEach(c=>{const s=span(c);if(s){const st=stageOf(c);l.push({b,c,s,st,d:(st&&st.harv)||s[0]})}}));l.sort((a,c)=>a.d<c.d?-1:1);
- h+=`<div class="card"><b>Collites previstes</b>${l.length?l.map(({b,c,s,st,d})=>{const msg=t<d?"d’aquí "+diff(t,d)+" dies":st&&st.i==5?"ha passat el punt":"ja es pot collir";
-  return `<div class="hist" style="display:block"><div>${ico(c.crop,18)} <b>${esc(c.crop)}</b> · ${esc(b.name)}</div><div class="mu">${c.m=="p"?"Trasplantat":"Sembrat"} ${fmt(c.sown)} · ${ic("collita",14)} ${st&&st.harv?"previsió pel clima ~ "+fmt(st.harv):fmt(s[0])+" – "+fmt(s[1])} · ${msg}</div></div>`}).join(""):'<div class="mu">Planta alguna cosa en un bancal i aquí veuràs quan collir-ho.</div>'}</div>`;
+ const l=[];S.beds.forEach(b=>(b.crops||[]).forEach((c,ci)=>{const s=span(c);if(s){const st=stageOf(c);let d=(st&&st.harv)||s[0];if(c.snz&&d<c.snz)d=c.snz;l.push({b,c,ci,s,st,d})}}));l.sort((a,c)=>a.d<c.d?-1:1);
+ const wk=d=>add(d,-((P(d).getDay()+6)%7)),key=d=>d<=t?t:hg=="w"?wk(d):d,gr={};l.forEach(o=>(gr[key(o.d)]=gr[key(o.d)]||[]).push(o));
+ const lab=k=>k==t?"Ara mateix":hg=="w"?"Setmana del "+fmt(k):k==add(t,1)?"Demà":fmt(k);
+ h+=`<div class="card"><b>Collites previstes</b><div class="row"><button class="b${hg=="d"?" p":""}" data-hg="d">Per dia</button><button class="b${hg=="w"?" p":""}" data-hg="w">Per setmana</button></div>${l.length?Object.keys(gr).sort().map(k=>`<div style="margin-top:8px"><b style="font-size:14px;font-family:var(--ser)">${lab(k)}</b>${gr[k].map(({b,c,ci,s,st,d})=>`<div class="hist"><span>${ico(c.crop,18)} ${esc(c.crop)} · ${esc(b.name)}<span class="mu"> · ${hg=="w"&&d>t?fmt(d)+" · ":""}${c.m=="p"?"trasplantat":"sembrat"} ${fmt(c.sown)}${st&&st.harv?"":" · "+fmt(s[0])+"–"+fmt(s[1])}</span></span>${d<=t?`<button class="b" data-ak="done" data-ab="${b.id}" data-ac="${ci}">Collit</button>`:""}</div>`).join("")}</div>`).join(""):'<div class="mu">Planta alguna cosa en un bancal i aquí veuràs quan collir-ho.</div>'}</div>`;
  m.innerHTML=h;
  m.querySelectorAll("[data-tk]").forEach(e=>e.onclick=()=>{const b=S.beds.find(x=>x.id==e.dataset.bd);if(!b)return;(b.log=b.log||[]).push({k:uid(),t:e.dataset.tk,d:today()});save();render();toast(e.dataset.tk=="w"?"Reg apuntat":"Adob apuntat")});
  m.querySelectorAll("[data-co2]").forEach(e=>e.onclick=()=>{cq="";copen=e.dataset.co2;tab="cat";render()});
+ m.querySelectorAll("[data-ak]").forEach(e=>e.onclick=()=>{const b=S.beds.find(x=>x.id==e.dataset.ab),c=b&&b.crops[+e.dataset.ac];if(!c)return;
+  if(e.dataset.ak=="snz"){c.snz=add(today(),3);save();render();toast("Avís posposat 3 dies");return}harvestDone(b,+e.dataset.ac)});
+ m.querySelectorAll("[data-hg]").forEach(e=>e.onclick=()=>{hg=e.dataset.hg;render()});
  const ics=$("#ics");if(ics)ics.onclick=()=>{const ie=x=>String(x).replace(/([\\;,])/g,"\\$1").replace(/\n/g," "),pd=x=>x.replace(/-/g,"");
   let o="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//El meu hort//CA\r\n";
   pl.forEach((q,i)=>{o+=`BEGIN:VEVENT\r\nUID:hort-${q.d}-${i}@hort\r\nDTSTAMP:${pd(t)}T000000Z\r\nDTSTART;VALUE=DATE:${pd(q.d)}\r\nDTEND;VALUE=DATE:${pd(add(q.d,1))}\r\nSUMMARY:${ie((q.t=="w"?"Reg":q.t=="f"?"Adob":"Collita")+" · "+q.b.name)}\r\nDESCRIPTION:${ie(q.x)}\r\nEND:VEVENT\r\n`});
@@ -595,14 +897,19 @@ function fillPh(root){root.querySelectorAll("[data-ph]").forEach(e=>{const n=e.d
  if(i&&i.img){phImg(e,i);return}if(i&&i.no)return;
  getInfo(n).then(x=>{if(x&&x.img&&e.isConnected)phImg(e,x)})})}
 function cropCard(n){const c=CROPS[n],i=INFO[n]||{};
- return `<div class="cr" style="cursor:pointer"><div class="row" style="flex-wrap:nowrap"><div class="ph" data-ph="${esc(n)}" data-em="${esc(ico(n,36))}">${ico(n,48)}</div><div class="g1"><b>${esc(n)}</b>${c[5]?`<div class="mu"><i>${esc(c[5])}</i></div>`:""}<div class="mu">${esc(c[3]||"")}</div>${dem(n)===null?"":`<div class="mu">Efecte al sòl: ${DL[dem(n)]}</div>`}<div class="mu">${ic("collita",16)} Collita: ${days({crop:n}).join("–")} dies des de la sembra${c[1]>=365?" (cultiu de diversos anys)":""}${days({crop:n}).join()!=days({crop:n,m:"p"}).join()?"<br>Amb plàntula: "+days({crop:n,m:"p"}).join("–")+" dies":""}</div></div></div><div>${esc(c[4])}</div>${plantCal(n)}${i.url?`<div class="mu"><a href="${esc(i.url)}" target="_blank" rel="noopener" style="color:var(--ac)">Més informació a la Viquipèdia</a></div>`:""}</div>`}
+ return `<div class="cr" style="cursor:pointer"><div class="row" style="flex-wrap:nowrap"><div class="ph" data-ph="${esc(n)}" data-em="${esc(ico(n,36))}">${ico(n,48)}</div><div class="g1"><b>${esc(n)}</b>${c[5]?`<div class="mu"><i>${esc(c[5])}</i></div>`:""}<div class="mu">${esc(c[3]||"")}</div>${dem(n)===null?"":`<div class="mu">Efecte al sòl: ${DL[dem(n)]}</div>`}${marc(n)}<div class="mu">${ic("collita",16)} Collita: ${days({crop:n}).join("–")} dies des de la sembra${c[1]>=365?" (cultiu de diversos anys)":""}${days({crop:n}).join()!=days({crop:n,m:"p"}).join()?"<br>Amb plàntula: "+days({crop:n,m:"p"}).join("–")+" dies":""}</div></div></div><div>${esc(c[4])}</div>${plantCal(n)}${i.url?`<div class="mu"><a href="${esc(i.url)}" target="_blank" rel="noopener" style="color:var(--ac)">Més informació a la Viquipèdia</a></div>`:""}</div>`}
 function rCat(){
- m.innerHTML=`<div class="row"><input id="cs" class="g1" type="search" placeholder="Cerca entre ${CN.length-1} cultius…" value="${esc(cq)}"></div><div id="cl"></div>`;
- const draw=()=>{const l=CN.filter(n=>n!="Altre"&&nz(n).includes(nz(cq))),cl=$("#cl");
-  cl.innerHTML=l.map(n=>n==copen?cropCard(n):`<div class="hist" data-co="${esc(n)}" style="cursor:pointer;padding:8px 0"><span>${ico(n,18)} ${esc(n)}</span><span class="mu">${esc(CROPS[n][3]||"")}</span></div>`).join("")||'<div class="mu">Cap resultat.</div>';
+ m.innerHTML=`<div class="row"><input id="cs" class="g1" type="search" placeholder="Cerca entre ${CN.length-1} cultius…" value="${esc(cq)}"></div><div class="row"><button class="b${csort=="a"?" p":""}" data-so="a">A–Z</button><button class="b${csort=="f"?" p":""}" data-so="f">Per família</button></div><div id="cl"></div>`;
+ const it=n=>n==copen?cropCard(n):`<div class="hist" data-co="${esc(n)}" style="cursor:pointer;padding:8px 0"><span>${ico(n,18)} ${esc(n)}</span><span class="mu">${esc(csort=="f"?"":(CROPS[n][3]||""))}</span></div>`;
+ const draw=()=>{const l=CN.filter(n=>n!="Altre"&&nz(n+" "+(ALS[n]||"")).includes(nz(cq))),cl=$("#cl");let h="";
+  if(csort=="f"){const g={};l.forEach(n=>{const f=CROPS[n][3]||"Altres";(g[f]=g[f]||[]).push(n)});
+   h=Object.keys(g).sort((a,b)=>a.localeCompare(b,"ca")).map(f=>`<div style="margin-top:10px;font-family:var(--ser);font-size:16px;font-weight:600">${esc(f)} <span class="mu">(${g[f].length})</span></div>`+g[f].map(it).join("")).join("")}
+  else h=l.map(it).join("");
+  cl.innerHTML=h||'<div class="mu">Cap resultat.</div>';
   cl.querySelectorAll("[data-co]").forEach(e=>e.onclick=()=>{copen=e.dataset.co;draw()});
   const o=cl.querySelector(".cr");if(o){o.onclick=ev=>{if(ev.target.tagName!="A"){copen=null;draw()}};if(!cq)o.scrollIntoView({block:"center"})}
   fillPh(cl)};
+ m.querySelectorAll("[data-so]").forEach(e=>e.onclick=()=>{csort=e.dataset.so;rCat()});
  $("#cs").oninput=e=>{cq=e.target.value;draw()};draw()}
 
 /* ---- Interacció del croquis ---- */
@@ -636,6 +943,7 @@ function wireMap(){
  $("#up").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
  const ia=$("#ia");if(ia)ia.onclick=()=>{b.crops.forEach(c=>{delete c.fx;delete c.fy});save();render()};
  const pp=$("#pp");if(pp){const upd=()=>{$("#pr").innerHTML=pestRec(pp.value,+$("#pi").value)};pp.onchange=upd;$("#pi").onchange=upd}
+ $("#so").onclick=()=>{csort=csort=="f"?"a":"f";render()};
  $("#nm").onchange=e=>{b.name=e.target.value;save();render()};
  $("#bw").onchange=e=>{b.w=Math.max(0.2,Math.min(g.w,sn(+e.target.value||b.w)));b.x=sn(Math.min(b.x,g.w-b.w));save();render()};
  $("#bh").onchange=e=>{b.h=Math.max(0.2,Math.min(g.h,sn(+e.target.value||b.h)));b.y=sn(Math.min(b.y,g.h-b.h));save();render()};
